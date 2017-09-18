@@ -3,10 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BMM.iml" filepath="$PROJECT_DIR$/BMM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BMM.iml" filepath="$PROJECT_DIR$/BMM.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/materialdesignlibrary/materialdesignlibrary.iml" filepath="$PROJECT_DIR$/materialdesignlibrary/materialdesignlibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/materialdesignlibrary2/materialdesignlibrary2.iml" filepath="$PROJECT_DIR$/materialdesignlibrary2/materialdesignlibrary2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/materialdrawerlibrary/materialdrawerlibrary.iml" filepath="$PROJECT_DIR$/materialdrawerlibrary/materialdrawerlibrary.iml" />
     </modules>
   </component>
 </project>
