@@ -8,18 +8,13 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences sharedpreferences;
-    public static final String mypreference = "mypref";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedpreferences = getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
-        if (sharedpreferences.contains("api")) {
-            Toast.makeText(getApplicationContext(),sharedpreferences.getString("api", ""),Toast.LENGTH_LONG).show();
-        }
+
     }
 }

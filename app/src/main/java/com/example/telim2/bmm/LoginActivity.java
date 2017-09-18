@@ -39,6 +39,16 @@ public class LoginActivity extends AppCompatActivity {
         loginPass=(EditText)findViewById(R.id.loginPass);
         loginUser=(EditText)findViewById(R.id.loginUsername);
 
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains("username") && sharedpreferences.contains("password")) {
+            if(!(sharedpreferences.getString("username", "").equals("") && sharedpreferences.getString("password", "").equals("") )){
+                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+
+            }
+        }
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,13 +73,15 @@ public class LoginActivity extends AppCompatActivity {
 
                                         JSONObject jsonObject=new JSONObject(response);
                                         status=jsonObject.getString("status");
-                                        userID=jsonObject.getString("uid");
-                                        api=jsonObject.getString("api");
-                                        userImageLink=jsonObject.getString("photo");
+
 
                                         if(status.equals("ok")){
+                                            
+                                            userID=jsonObject.getString("uid");
+                                            api=jsonObject.getString("api");
+                                            userImageLink=jsonObject.getString("photo");
 
-                                            saveShared(userID,api,userImageLink);
+                                            saveShared(userID,api,userImageLink,username,pass);
                                             Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                                             startActivity(intent);
 
@@ -107,14 +119,16 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void saveShared(String userID, String api, String userImageLink){
+    private void saveShared(String userIDSh, String apiSh, String userImageLinkSh,String usernameSh,String passSh){
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("userID",userID);
-        editor.putString("api",api);
-        editor.putString("userImageLink",userImageLink);
+        editor.putString("userID",userIDSh);
+        editor.putString("api",apiSh);
+        editor.putString("userImageLink",userImageLinkSh);
+        editor.putString("username",usernameSh);
+        editor.putString("password",passSh);
         editor.commit();
     }
 }
