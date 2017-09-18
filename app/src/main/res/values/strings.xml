@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BMM</string>
+    <string name="loginButton">Login</string>
 </resources>
