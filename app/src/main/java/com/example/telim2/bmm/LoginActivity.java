@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button loginButton;
     private EditText loginPass,loginUser;
-    private String pass,username,status,api,userID,userImageLink;
+    private String pass,username,status;
     public static final String mypreference = "mypref";
     SharedPreferences sharedpreferences;
 
@@ -76,12 +76,20 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                         if(status.equals("ok")){
-                                            
-                                            userID=jsonObject.getString("uid");
-                                            api=jsonObject.getString("api");
-                                            userImageLink=jsonObject.getString("photo");
 
-                                            saveShared(userID,api,userImageLink,username,pass);
+                                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                                            editor.putString("userID",jsonObject.getString("uid"));
+                                            editor.putString("api",jsonObject.getString("api"));
+                                            editor.putString("userImageLink",jsonObject.getString("photo"));
+                                            editor.putString("username",username);
+                                            editor.putString("password",pass);
+                                            editor.putString("name",jsonObject.getString("name"));
+                                            editor.putString("surname",jsonObject.getString("surname"));
+                                            editor.putString("father",jsonObject.getString("father"));
+                                            editor.putString("classNumber",jsonObject.getString("classNumber"));
+                                            editor.putString("classLetter",jsonObject.getString("classLetter"));
+                                            editor.putString("studyYear",jsonObject.getString("studyYear"));
+                                            editor.commit();
                                             Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                                             startActivity(intent);
 
@@ -119,16 +127,4 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void saveShared(String userIDSh, String apiSh, String userImageLinkSh,String usernameSh,String passSh){
-
-        sharedpreferences = getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("userID",userIDSh);
-        editor.putString("api",apiSh);
-        editor.putString("userImageLink",userImageLinkSh);
-        editor.putString("username",usernameSh);
-        editor.putString("password",passSh);
-        editor.commit();
-    }
 }
