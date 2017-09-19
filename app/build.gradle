@@ -32,4 +32,5 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.3.3@aar') {
         transitive = true
     }
+    compile 'junit:junit:4.12'
 }
