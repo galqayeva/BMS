@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         tw2.setText(sharedpreferences.getString("surname", ""));
         tw3.setText(sharedpreferences.getString("father", ""));
 
-        Picasso.with(getApplicationContext()).load("http://i.imgur.com/DvpvklR.png").transform(new CircleTransform()).into(imageView);
+        Picasso.with(getApplicationContext()).load(sharedpreferences.getString("image", "")).transform(new CircleTransform()).into(imageView);
 
         drawMenu(toolbar);
 
