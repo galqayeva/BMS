@@ -64,12 +64,6 @@ public class BaseActivity extends ActionBarActivity {
                 .addProfiles(
                         new ProfileDrawerItem().withName("Mike Penz")
                 )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
                 .build();
         Drawer result = new DrawerBuilder()
                 .withActivity(this)

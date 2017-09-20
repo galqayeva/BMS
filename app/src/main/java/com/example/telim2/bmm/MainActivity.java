@@ -40,78 +40,22 @@ public class MainActivity extends BaseActivity{
         toolBarInitialize(R.id.toolbar);
         setTitle("proosos");
 
-        toolbar=(Toolbar)findViewById(R.id.toolbar);
         imageView=(ImageView)findViewById(R.id.imageView);
         tw1=(TextView)findViewById(R.id.textView4);
         tw2=(TextView)findViewById(R.id.textView5);
         tw3=(TextView)findViewById(R.id.textView6);
 
-        sharedpreferences = getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences(mypreference,Context.MODE_PRIVATE);
 
         tw1.setText(sharedpreferences.getString("name", ""));
         tw2.setText(sharedpreferences.getString("surname", ""));
         tw3.setText(sharedpreferences.getString("father", ""));
 
-        //Picasso.with(getApplicationContext()).load(sharedpreferences.getString("image", "")).transform(new CircleTransform()).into(imageView);
+        Picasso.with(getApplicationContext()).load(sharedpreferences.getString("image", "")).transform(new CircleTransform()).into(imageView);
 
-      //  drawMenu(toolbar);
-
-
+        Toast.makeText(getApplicationContext(),sharedpreferences.getString("userImageLink", ""),Toast.LENGTH_LONG).show();
 
 
     }
 
-    public void drawMenu(Toolbar toolbar){
-
-        PrimaryDrawerItem item0 = new PrimaryDrawerItem().withIdentifier(1).withName(Constants.DRAWER_MENU_HOME);
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(Constants.DRAWER_MENU_GUNLUK);
-        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(1).withName(Constants.DRAWER_MENU_CHAT);
-
-
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.mipmap.logo)
-                .addProfiles(
-                        new ProfileDrawerItem().withName("Mike Penz")
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
-                .build();
-        Drawer result = new DrawerBuilder()
-                .withActivity(this)
-                .withAccountHeader(headerResult)
-                .withToolbar(toolbar)
-                .addDrawerItems(
-                        item0,item1,item2,
-                        new DividerDrawerItem()
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        switch (position){
-                            case 1:
-                                Intent intent0=new Intent(getApplicationContext(),MainActivity.class);
-                                startActivity(intent0);
-                                break;
-                            case 2:
-                                Intent intent=new Intent(getApplicationContext(),DailyActivity.class);
-                                startActivity(intent);
-                                break;
-                            case 3:
-                                Intent intent2=new Intent(getApplicationContext(),ChatActivity.class);
-                                startActivity(intent2);
-                                break;
-                        }
-
-                        return true;
-                    }
-                })
-                .build();
-
-    }
 }
