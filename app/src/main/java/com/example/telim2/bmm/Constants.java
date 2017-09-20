@@ -13,6 +13,7 @@ public class Constants {
     public  static  String DRAWER_MENU_GUNLUK="Gundelik";
     public static  String DRAWER_MENU_CHAT="Mesajlasma";
     public  static String DRAWER_MENU_HOME="Ana Sehife";
+    public static String DRAWER_MENU_LOGOUT="Cixis";
 
 
     ///Strings

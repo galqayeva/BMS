@@ -1,27 +1,15 @@
-package com.example.telim2.bmm;
+package com.example.telim2.bmm.Activities;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.example.telim2.bmm.Others.CircleTransform;
+import com.example.telim2.bmm.R;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends BaseActivity{
@@ -51,9 +39,7 @@ public class MainActivity extends BaseActivity{
         tw2.setText(sharedpreferences.getString("surname", ""));
         tw3.setText(sharedpreferences.getString("father", ""));
 
-        Picasso.with(getApplicationContext()).load(sharedpreferences.getString("image", "")).transform(new CircleTransform()).into(imageView);
-
-        Toast.makeText(getApplicationContext(),sharedpreferences.getString("userImageLink", ""),Toast.LENGTH_LONG).show();
+        Picasso.with(getApplicationContext()).load(sharedpreferences.getString("userImageLink", "")).transform(new CircleTransform()).into(imageView);
 
 
     }

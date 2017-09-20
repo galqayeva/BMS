@@ -1,4 +1,4 @@
-package com.example.telim2.bmm;
+package com.example.telim2.bmm.Others;
 
 /**
  * Created by telim2 on 19.09.2017.

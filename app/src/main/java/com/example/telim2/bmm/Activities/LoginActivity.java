@@ -1,4 +1,4 @@
-package com.example.telim2.bmm;
+package com.example.telim2.bmm.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.telim2.bmm.Constants;
+import com.example.telim2.bmm.Others.MySingleTon;
+import com.example.telim2.bmm.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (pass.equals("") || username.equals("")){
 
-                    Toast.makeText(getApplicationContext(),Constants.PLEASE_FILL_USERNAME_AND_PASS,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), Constants.PLEASE_FILL_USERNAME_AND_PASS,Toast.LENGTH_LONG).show();
 
                 }
                 else{
