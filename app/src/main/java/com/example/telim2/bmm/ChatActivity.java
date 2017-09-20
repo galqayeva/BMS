@@ -16,7 +16,7 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends BaseActivity {
 
     Toolbar toolbar;
 
@@ -25,8 +25,8 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        toolbar=(Toolbar)findViewById(R.id.toolbar);
-        drawMenu(toolbar);
+        toolBarInitialize(R.id.toolbar);
+        setTitle("proosos");
 
 
     }

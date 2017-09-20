@@ -16,16 +16,18 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-public class DailyActivity extends AppCompatActivity {
+public class DailyActivity extends BaseActivity {
 
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily);
+        toolBarInitialize(R.id.toolbar);
+        setTitle("proosos");
 
-        toolbar=(Toolbar)findViewById(R.id.toolbar);
-        drawMenu(toolbar);
+//        toolbar=(Toolbar)findViewById(R.id.toolbar);
+//        drawMenu(toolbar);
 
     }
 

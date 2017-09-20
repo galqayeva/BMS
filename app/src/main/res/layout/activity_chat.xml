@@ -8,8 +8,9 @@
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="@dimen/material_drawer_account_header_compact"
-        android:id="@+id/toolbar">
+        android:layout_height="56dp"
+        android:id="@+id/toolbar"
+        android:background="@color/colorMainGreen">
 
     </android.support.v7.widget.Toolbar>
 

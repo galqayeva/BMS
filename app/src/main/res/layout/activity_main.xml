@@ -7,13 +7,13 @@
     tools:context="com.example.telim2.bmm.MainActivity">
 
     <android.support.v7.widget.Toolbar
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:id="@+id/toolbar"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:background="@color/colorMainGreen">
 
     </android.support.v7.widget.Toolbar>
+
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
