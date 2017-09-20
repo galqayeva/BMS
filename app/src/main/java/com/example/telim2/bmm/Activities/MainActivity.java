@@ -25,6 +25,7 @@ public class MainActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolBarInitialize(R.id.toolbar);
+        setTitle("Proschool");
 
         imageView=(ImageView)findViewById(R.id.imageView);
         twInf=(TextView)findViewById(R.id.textViewInf);

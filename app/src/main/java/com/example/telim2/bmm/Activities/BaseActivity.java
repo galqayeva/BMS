@@ -44,7 +44,6 @@ public class BaseActivity extends ActionBarActivity {
 
     public void toolBarInitialize(int toolBarId) {
         Toolbar toolbar = (Toolbar) findViewById(toolBarId);
-        setTitle("Proschool");
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         toolbar.setSubtitleTextColor(getResources().getColor(android.R.color.white));
         setSupportActionBar(toolbar);
