@@ -31,7 +31,7 @@ public class DailyActivity extends BaseActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         tabLayout.getTabAt(0).setText("first");
-        tabLayout.getTabAt(1).setText("ddd");
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_action_name);
         tabLayout.getTabAt(2).setText("firsdddt");
 
     }
