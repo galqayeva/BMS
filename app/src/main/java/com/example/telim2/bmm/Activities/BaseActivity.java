@@ -44,6 +44,7 @@ public class BaseActivity extends ActionBarActivity {
 
     public void toolBarInitialize(int toolBarId) {
         Toolbar toolbar = (Toolbar) findViewById(toolBarId);
+        setTitle("Proschool");
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         toolbar.setSubtitleTextColor(getResources().getColor(android.R.color.white));
         setSupportActionBar(toolbar);
@@ -57,11 +58,13 @@ public class BaseActivity extends ActionBarActivity {
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.mipmap.logo)
+
                 .build();
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
                 .withAccountHeader(headerResult)
+                .withActionBarDrawerToggle(true)
+                .withSliderBackgroundColorRes(R.color.colorMainViolet)
                 .withToolbar(toolbar)
                 .addDrawerItems(
                         item0,item1,item2,

@@ -11,7 +11,6 @@ public class DailyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily);
         toolBarInitialize(R.id.toolbar);
-        setTitle("proosos");
 
     }
 

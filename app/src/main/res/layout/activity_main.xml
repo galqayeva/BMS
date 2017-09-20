@@ -14,58 +14,44 @@
 
     </android.support.v7.widget.Toolbar>
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true">
+
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         app:srcCompat="@mipmap/ic_launcher"
         tools:layout_editor_absoluteX="156dp"
-        android:layout_marginTop="98dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-   </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_below="@+id/toolbar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="76dp"
-        android:layout_marginStart="76dp"
+        android:layout_marginTop="14dp" />
+
+    <TextView
+        android:id="@+id/textViewInf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_marginLeft="26dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="28dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textViewClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="227dp"
+        android:layout_alignLeft="@+id/textViewInf"
+        android:layout_alignStart="@+id/textViewInf"
+        android:layout_below="@+id/textViewInf"
+        android:layout_marginTop="38dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
-        android:layout_toRightOf="@+id/textView5"
-        android:layout_toEndOf="@+id/textView5"
-        android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp" />
 
 </RelativeLayout>

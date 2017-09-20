@@ -18,26 +18,22 @@ public class MainActivity extends BaseActivity{
     ImageView imageView;
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
-    TextView tw1,tw2,tw3;
+    TextView twInf,twClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         toolBarInitialize(R.id.toolbar);
-        setTitle("proosos");
 
         imageView=(ImageView)findViewById(R.id.imageView);
-        tw1=(TextView)findViewById(R.id.textView4);
-        tw2=(TextView)findViewById(R.id.textView5);
-        tw3=(TextView)findViewById(R.id.textView6);
+        twInf=(TextView)findViewById(R.id.textViewInf);
+        twClass=(TextView)findViewById(R.id.textViewClass);
 
         sharedpreferences = getSharedPreferences(mypreference,Context.MODE_PRIVATE);
 
-        tw1.setText(sharedpreferences.getString("name", ""));
-        tw2.setText(sharedpreferences.getString("surname", ""));
-        tw3.setText(sharedpreferences.getString("father", ""));
+        twInf.setText(sharedpreferences.getString("name", "")+" "+sharedpreferences.getString("surname", "")+" "+sharedpreferences.getString("father", ""));
+        twClass.setText(sharedpreferences.getString("classNumber", "")+sharedpreferences.getString("classLetter", ""));
 
         Picasso.with(getApplicationContext()).load(sharedpreferences.getString("userImageLink", "")).transform(new CircleTransform()).into(imageView);
 
