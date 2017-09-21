@@ -16,4 +16,11 @@
         <item>New Zealand</item>
         <item>India</item>
     </string-array>
+
+
+       <string name="Monday">Bazar ertesi</string>
+        <string name="Tuesday">Cersenbe Axsami</string>
+       <string name="Wednesday">Cersenbe</string>
+        <string name="Thursday">Cume axsami</string>
+        <string name="Friday">Cume</string>
 </resources>

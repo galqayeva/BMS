@@ -10,23 +10,82 @@
         android:layout_height="40dp"
         android:entries="@array/country_arrays"
         android:prompt="@string/country_prompt"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:pointerIcon="wait"
-        />
+        android:layout_marginTop="23dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button"
+        android:layout_marginRight="80dp"
+        android:layout_marginEnd="80dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonOk"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="34dp"
-        android:layout_marginStart="34dp"
         android:textSize="7dp"
-        android:layout_toRightOf="@+id/spinner1"
         android:text="@string/ok"
-        android:layout_alignBottom="@+id/spinner1"
-        android:background="@color/colorMainGreen"
-        android:textColor="@color/colorPrimary"/>
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorMainGreen"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignTop="@+id/spinner1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonMonday"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorMainGreen"
+            android:text="@string/Monday"
+            android:textColor="@color/colorPrimary"
+            android:textSize="9dp"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/buttonTuesday"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorMainGreen"
+            android:text="@string/Tuesday"
+            android:textColor="@color/colorPrimary"
+            android:textSize="9dp"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:id="@+id/buttonWednesday"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorMainGreen"
+            android:text="@string/Wednesday"
+            android:textColor="@color/colorPrimary"
+            android:textSize="9dp"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:id="@+id/buttonThursday"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorMainGreen"
+            android:text="@string/Thursday"
+            android:textColor="@color/colorPrimary"
+            android:textSize="9dp"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:id="@+id/buttonFriday"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorMainGreen"
+            android:text="@string/Friday"
+            android:textColor="@color/colorPrimary"
+            android:textSize="9dp"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
 </RelativeLayout>
