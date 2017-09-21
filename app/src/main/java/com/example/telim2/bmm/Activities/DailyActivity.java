@@ -30,9 +30,12 @@ public class DailyActivity extends BaseActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        tabLayout.getTabAt(0).setText("first");
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_action_notes);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_action_name);
-        tabLayout.getTabAt(2).setText(R.drawable.ic_action_absence);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_action_absence);
+
+
+
 
     }
 
