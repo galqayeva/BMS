@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">BMM</string>
     <string name="loginButton">Login</string>
+
+
+    <string name="country_prompt">Months</string>
+    <string name="ok">Tesdiqle</string>
+
+    <string-array name="country_arrays">
+        <item>December</item>
+        <item>October</item>
+        <item>January</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
 </resources>

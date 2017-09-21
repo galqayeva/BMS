@@ -10,20 +10,29 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.example.telim2.bmm.R;
 
-/**
- * Created by galqayeva on 21.08.2017.
- */
 
 public class FragmentOne extends Fragment {
+
+    Spinner spinner;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view1=inflater.inflate(R.layout.fragment1,container,false);
-        return view1;
+        View view=inflater.inflate(R.layout.fragment1,container,false);
+
+        spinner = (Spinner) view.findViewById(R.id.spinner1);
+
+
+        Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
+
+
+        return view;
 
     }
 }
