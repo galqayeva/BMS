@@ -29,7 +29,7 @@ public class FragmentOne extends Fragment {
         spinner = (Spinner) view.findViewById(R.id.spinner1);
 
 
-        Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
 
 
         return view;

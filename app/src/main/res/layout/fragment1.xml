@@ -7,22 +7,26 @@
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:entries="@array/country_arrays"
         android:prompt="@string/country_prompt"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:pointerIcon="wait"
         />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="40dp"
-        android:layout_height="20dp"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="34dp"
         android:layout_marginStart="34dp"
+        android:textSize="7dp"
         android:layout_toRightOf="@+id/spinner1"
         android:text="@string/ok"
-        android:layout_alignBottom="@+id/spinner1" />
+        android:layout_alignBottom="@+id/spinner1"
+        android:background="@color/colorMainGreen"
+        android:textColor="@color/colorPrimary"/>
 </RelativeLayout>
