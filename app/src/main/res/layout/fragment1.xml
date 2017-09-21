@@ -13,8 +13,8 @@
         android:pointerIcon="wait"
         android:layout_marginTop="23dp"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button"
+        android:layout_alignRight="@+id/buttonOk"
+        android:layout_alignEnd="@+id/buttonOk"
         android:layout_marginRight="80dp"
         android:layout_marginEnd="80dp" />
 

@@ -29,9 +29,19 @@ public class FragmentOne extends Fragment {
         View view=inflater.inflate(R.layout.fragment1,container,false);
 
         spinner = (Spinner) view.findViewById(R.id.spinner1);
+        monday=(Button)view.findViewById(R.id.buttonMonday);
+        tuesday=(Button)view.findViewById(R.id.buttonTuesday);
+        wednesday=(Button)view.findViewById(R.id.buttonWednesday);
+        thursday=(Button)view.findViewById(R.id.buttonThursday);
+        friday=(Button)view.findViewById(R.id.buttonFriday);
 
 
-      //  Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
+        monday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         return view;
