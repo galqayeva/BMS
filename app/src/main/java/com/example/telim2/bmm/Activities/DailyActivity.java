@@ -32,7 +32,7 @@ public class DailyActivity extends BaseActivity {
 
         tabLayout.getTabAt(0).setText("first");
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_action_name);
-        tabLayout.getTabAt(2).setText("firsdddt");
+        tabLayout.getTabAt(2).setText(R.drawable.ic_action_absence);
 
     }
 
