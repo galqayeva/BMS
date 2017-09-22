@@ -7,6 +7,7 @@ package com.example.telim2.bmm;
 public class Constants {
 
     public  static  String LOGIN_URL="http://82.194.6.3:1213/API/";
+    public  static String DAILY_URL="";
 
     //////drawer menu
 

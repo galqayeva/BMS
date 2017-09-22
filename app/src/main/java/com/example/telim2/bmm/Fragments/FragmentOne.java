@@ -4,6 +4,9 @@ package com.example.telim2.bmm.Fragments;
  * Created by telim2 on 20.09.2017.
  */
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,11 +14,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.telim2.bmm.Activities.MainActivity;
+import com.example.telim2.bmm.Constants;
+import com.example.telim2.bmm.Others.MySingleTon;
 import com.example.telim2.bmm.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class FragmentOne extends Fragment {
@@ -24,6 +42,8 @@ public class FragmentOne extends Fragment {
     Button ok,monday,tuesday,wednesday,thursday,friday;
     RecyclerView recyclerView;
     int k=1,a=1;
+    public static final String mypreference = "mypref";
+    SharedPreferences sharedpreferences;
 
     @Nullable
     @Override
@@ -39,6 +59,43 @@ public class FragmentOne extends Fragment {
         friday=(Button)view.findViewById(R.id.buttonFriday);
         ok=(Button)view.findViewById(R.id.buttonOk);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycleview);
+
+        sharedpreferences = this.getActivity().getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+
+
+        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+            
+        });
+
+//        StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//
+//                        Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(getActivity(),"check your internet connectio",Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//        ){
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String,String> params=new HashMap<String, String>();
+//                params.put("api",sharedpreferences.getString("api", ""));
+//                params.put("getGradeList","1");
+//                return params;
+//            }
+//        };
+//        MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
 
 
         monday.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +123,6 @@ public class FragmentOne extends Fragment {
         tuesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
                 if(a==1){
                     monday.setVisibility(View.GONE);
                     wednesday.setVisibility(View.GONE);

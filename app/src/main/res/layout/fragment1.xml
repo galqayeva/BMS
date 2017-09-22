@@ -26,11 +26,9 @@
         android:text="@string/ok"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorMainGreen"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_alignTop="@+id/spinner1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/linearLayout2"
+        android:layout_alignEnd="@+id/linearLayout2" />
 
     <LinearLayout
         android:layout_width="match_parent"
