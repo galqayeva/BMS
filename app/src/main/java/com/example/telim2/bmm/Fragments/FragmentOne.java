@@ -7,6 +7,7 @@ package com.example.telim2.bmm.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ public class FragmentOne extends Fragment {
 
     Spinner spinner;
     Button ok,monday,tuesday,wednesday,thursday,friday;
+    RecyclerView recyclerView;
+    int k=1;
 
     @Nullable
     @Override
@@ -34,12 +37,29 @@ public class FragmentOne extends Fragment {
         wednesday=(Button)view.findViewById(R.id.buttonWednesday);
         thursday=(Button)view.findViewById(R.id.buttonThursday);
         friday=(Button)view.findViewById(R.id.buttonFriday);
+        recyclerView=(RecyclerView)view.findViewById(R.id.recycleview);
 
 
         monday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
+                if(k==1){
+                    tuesday.setVisibility(View.GONE);
+                    wednesday.setVisibility(View.GONE);
+                    thursday.setVisibility(View.GONE);
+                    friday.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    tuesday.setVisibility(View.VISIBLE);
+                    wednesday.setVisibility(View.VISIBLE);
+                    thursday.setVisibility(View.VISIBLE);
+                    friday.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    k--;
+                }
             }
         });
 

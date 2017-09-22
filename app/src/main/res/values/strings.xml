@@ -7,14 +7,15 @@
     <string name="ok">Tesdiqle</string>
 
     <string-array name="country_arrays">
-        <item>December</item>
-        <item>October</item>
-        <item>January</item>
-        <item>France</item>
-        <item>Italy</item>
-        <item>Singapore</item>
-        <item>New Zealand</item>
-        <item>India</item>
+        <item>Sentyabr</item>
+        <item>Oktyabr</item>
+        <item>Noyabr</item>
+        <item>Dekabr</item>
+        <item>Yanvar</item>
+        <item>Fevral</item>
+        <item>Mart</item>
+        <item>Aprel</item>
+        <item>May</item>
     </string-array>
 
 
