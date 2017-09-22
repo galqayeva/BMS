@@ -23,7 +23,7 @@ public class FragmentOne extends Fragment {
     Spinner spinner;
     Button ok,monday,tuesday,wednesday,thursday,friday;
     RecyclerView recyclerView;
-    int k=1;
+    int k=1,a=1;
 
     @Nullable
     @Override
@@ -59,6 +59,28 @@ public class FragmentOne extends Fragment {
                     friday.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                     k--;
+                }
+            }
+        });
+        tuesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
+                if(a==1){
+                    monday.setVisibility(View.GONE);
+                    wednesday.setVisibility(View.GONE);
+                    thursday.setVisibility(View.GONE);
+                    friday.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    a++;
+                }
+                else{
+                    monday.setVisibility(View.VISIBLE);
+                    wednesday.setVisibility(View.VISIBLE);
+                    thursday.setVisibility(View.VISIBLE);
+                    friday.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    a--;
                 }
             }
         });

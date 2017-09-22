@@ -57,7 +57,6 @@ public class BaseActivity extends ActionBarActivity {
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
-
                 .build();
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
