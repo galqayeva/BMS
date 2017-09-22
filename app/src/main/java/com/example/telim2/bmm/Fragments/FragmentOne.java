@@ -37,6 +37,7 @@ public class FragmentOne extends Fragment {
         wednesday=(Button)view.findViewById(R.id.buttonWednesday);
         thursday=(Button)view.findViewById(R.id.buttonThursday);
         friday=(Button)view.findViewById(R.id.buttonFriday);
+        ok=(Button)view.findViewById(R.id.buttonOk);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycleview);
 
 
