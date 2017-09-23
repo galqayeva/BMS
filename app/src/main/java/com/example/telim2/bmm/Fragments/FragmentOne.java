@@ -36,6 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,11 +48,12 @@ public class FragmentOne extends Fragment {
     Spinner spinner;
     Button ok,monday,tuesday,wednesday,thursday,friday;
     RecyclerView recyclerView,recyclerView2;
-    int k=1,a=1;
+    int k=1,a=1,dm=1;
     public static final String mypreference = "mypref";
     SharedPreferences sharedpreferences;
     private List<LessonTableModel> modelList,modelList2;
-    private RecyclerView.Adapter adapter,adapter2;
+    private RecyclerView.Adapter adapter2;
+
 
     @Nullable
     @Override
@@ -85,42 +87,46 @@ public class FragmentOne extends Fragment {
                     @Override
                     public void onResponse(String response) {
 
-                       // Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
 
                         try {
                             JSONObject jsonObject=new JSONObject(response);
                             if (jsonObject.getString("status").equals("ok")){
 
                                 JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
-                                JSONObject jsonObjectDayone=jsonArray.getJSONObject(0);
-                                for (int i=0;i<jsonObjectDayone.getJSONArray("subjects").length();i++){
 
-                                    JSONObject jsonObjectLesson=jsonObjectDayone.getJSONArray("subjects").getJSONObject(i);
-                                    String name=jsonObjectLesson.getString("name");
-                                    String grade=jsonObjectLesson.getString("grade");
+                                for (int i=0;i<2;i++){
+                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
 
-                                    LessonTableModel item=new LessonTableModel(name,grade);
-                                    modelList.add(item);
+                                    for (int j=0;j<jsonObjectdemo.getJSONArray("subjects").length();j++){
+
+                                        JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
+                                        String name=jsonObjectLesson.getString("name");
+                                        String grade=jsonObjectLesson.getString("grade");
+
+                                        if(dm<=11){
+                                            LessonTableModel demo=new LessonTableModel(name,grade);
+                                            modelList.add(demo);
+                                            dm++;
+                                        }
+                                        else if (dm>11){
+                                            LessonTableModel demo2=new LessonTableModel(name,grade);
+                                            modelList2.add(demo2);
+                                            dm++;
+                                        }
+
+
+                                    }
+
+                                        RecyclerView.Adapter adapter=new MyAdapter(modelList,getActivity());
+                                        recyclerView.setAdapter(adapter);
+
+
+                                        RecyclerView.Adapter adapter2=new MyAdapter(modelList2,getActivity());
+                                        recyclerView2.setAdapter(adapter2);
+
 
 
                                 }
-                                adapter=new MyAdapter(modelList,getActivity());
-                                recyclerView.setAdapter(adapter);
-
-                                JSONObject jsonObjectDayTwo=jsonArray.getJSONObject(1);
-                                for (int i=0;i<jsonObjectDayTwo.getJSONArray("subjects").length();i++){
-
-                                    JSONObject jsonObjectLesson=jsonObjectDayTwo.getJSONArray("subjects").getJSONObject(i);
-                                    String name=jsonObjectLesson.getString("name");
-                                    String grade=jsonObjectLesson.getString("grade");
-
-                                    LessonTableModel item2=new LessonTableModel(name,grade);
-                                    modelList2.add(item2);
-
-
-                                }
-                                adapter2=new MyAdapter(modelList2,getActivity());
-                                recyclerView2.setAdapter(adapter2);
 
                             }
 
@@ -187,7 +193,7 @@ public class FragmentOne extends Fragment {
                     wednesday.setVisibility(View.VISIBLE);
                     thursday.setVisibility(View.VISIBLE);
                     friday.setVisibility(View.VISIBLE);
-                    recyclerView.setVisibility(View.GONE);
+                    recyclerView2.setVisibility(View.GONE);
                     a--;
                 }
             }
