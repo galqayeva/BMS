@@ -46,12 +46,12 @@ public class FragmentOne extends Fragment {
 
     Spinner spinner;
     Button ok,monday,tuesday,wednesday,thursday,friday;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView,recyclerView2;
     int k=1,a=1;
     public static final String mypreference = "mypref";
     SharedPreferences sharedpreferences;
-    private List<LessonTableModel> modelList;
-    private RecyclerView.Adapter adapter;
+    private List<LessonTableModel> modelList,modelList2;
+    private RecyclerView.Adapter adapter,adapter2;
 
     @Nullable
     @Override
@@ -66,12 +66,17 @@ public class FragmentOne extends Fragment {
         thursday=(Button)view.findViewById(R.id.buttonThursday);
         friday=(Button)view.findViewById(R.id.buttonFriday);
         ok=(Button)view.findViewById(R.id.buttonOk);
+
         recyclerView=(RecyclerView)view.findViewById(R.id.recycleview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView2=(RecyclerView)view.findViewById(R.id.recycleview2);
+        recyclerView2.setHasFixedSize(true);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
         modelList=new ArrayList<>();
+        modelList2=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
 
@@ -88,10 +93,9 @@ public class FragmentOne extends Fragment {
 
                                 JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
                                 JSONObject jsonObjectDayone=jsonArray.getJSONObject(0);
-                                JSONArray jsonArraySubject=jsonObjectDayone.getJSONArray("subjects");
-                                for (int i=0;i<jsonArraySubject.length();i++){
+                                for (int i=0;i<jsonObjectDayone.getJSONArray("subjects").length();i++){
 
-                                    JSONObject jsonObjectLesson=jsonArraySubject.getJSONObject(i);
+                                    JSONObject jsonObjectLesson=jsonObjectDayone.getJSONArray("subjects").getJSONObject(i);
                                     String name=jsonObjectLesson.getString("name");
                                     String grade=jsonObjectLesson.getString("grade");
 
@@ -102,6 +106,21 @@ public class FragmentOne extends Fragment {
                                 }
                                 adapter=new MyAdapter(modelList,getActivity());
                                 recyclerView.setAdapter(adapter);
+
+                                JSONObject jsonObjectDayTwo=jsonArray.getJSONObject(1);
+                                for (int i=0;i<jsonObjectDayTwo.getJSONArray("subjects").length();i++){
+
+                                    JSONObject jsonObjectLesson=jsonObjectDayTwo.getJSONArray("subjects").getJSONObject(i);
+                                    String name=jsonObjectLesson.getString("name");
+                                    String grade=jsonObjectLesson.getString("grade");
+
+                                    LessonTableModel item2=new LessonTableModel(name,grade);
+                                    modelList2.add(item2);
+
+
+                                }
+                                adapter2=new MyAdapter(modelList2,getActivity());
+                                recyclerView2.setAdapter(adapter2);
 
                             }
 
@@ -159,7 +178,8 @@ public class FragmentOne extends Fragment {
                     wednesday.setVisibility(View.GONE);
                     thursday.setVisibility(View.GONE);
                     friday.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    recyclerView2.setVisibility(View.VISIBLE);
                     a++;
                 }
                 else{
