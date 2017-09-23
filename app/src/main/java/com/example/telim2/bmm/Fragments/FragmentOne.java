@@ -81,78 +81,8 @@ public class FragmentOne extends Fragment {
         modelList2=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
+        getGrades();
 
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-
-                        try {
-                            JSONObject jsonObject=new JSONObject(response);
-                            if (jsonObject.getString("status").equals("ok")){
-
-                                JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
-
-                                for (int i=0;i<2;i++){
-                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
-
-                                    for (int j=0;j<jsonObjectdemo.getJSONArray("subjects").length();j++){
-
-                                        JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
-                                        String name=jsonObjectLesson.getString("name");
-                                        String grade=jsonObjectLesson.getString("grade");
-
-                                        if(dm<=11){
-                                            LessonTableModel demo=new LessonTableModel(name,grade);
-                                            modelList.add(demo);
-                                            dm++;
-                                        }
-                                        else if (dm>11){
-                                            LessonTableModel demo2=new LessonTableModel(name,grade);
-                                            modelList2.add(demo2);
-                                            dm++;
-                                        }
-
-
-                                    }
-
-                                        RecyclerView.Adapter adapter=new MyAdapter(modelList,getActivity());
-                                        recyclerView.setAdapter(adapter);
-
-
-                                        RecyclerView.Adapter adapter2=new MyAdapter(modelList2,getActivity());
-                                        recyclerView2.setAdapter(adapter2);
-
-
-
-                                }
-
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(),"check your internet connectio",Toast.LENGTH_LONG).show();
-                    }
-                }
-        ){
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String, String>();
-                params.put("api",sharedpreferences.getString("api", ""));
-                params.put("getGradeList","1");
-                return params;
-            }
-        };
-        MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
 
 
         monday.setOnClickListener(new View.OnClickListener() {
@@ -202,5 +132,81 @@ public class FragmentOne extends Fragment {
 
         return view;
 
+    }
+
+    public void getGrades(){
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            if (jsonObject.getString("status").equals("ok")){
+
+                                JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
+
+                                for (int i=0;i<2;i++){
+                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
+
+                                    for (int j=0;j<jsonObjectdemo.getJSONArray("subjects").length();j++){
+
+                                        JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
+                                        String name=jsonObjectLesson.getString("name");
+                                        String grade=jsonObjectLesson.getString("grade");
+
+                                        if(dm<=11){
+                                            LessonTableModel demo=new LessonTableModel(name,grade);
+                                            modelList.add(demo);
+                                            dm++;
+                                        }
+                                        else if (dm>11){
+                                            LessonTableModel demo2=new LessonTableModel(name,grade);
+                                            modelList2.add(demo2);
+                                            dm++;
+                                        }
+
+
+                                    }
+
+                                    RecyclerView.Adapter adapter=new MyAdapter(modelList,getActivity());
+                                    recyclerView.setAdapter(adapter);
+
+
+                                    RecyclerView.Adapter adapter2=new MyAdapter(modelList2,getActivity());
+                                    recyclerView2.setAdapter(adapter2);
+
+
+
+                                }
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(),"check your internet connectio",Toast.LENGTH_LONG).show();
+                    }
+                }
+        ){
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String, String>();
+                params.put("api",sharedpreferences.getString("api", ""));
+                params.put("getGradeList","1");
+                params.put("week","");
+                params.put("month","");
+                return params;
+            }
+        };
+        MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 }
