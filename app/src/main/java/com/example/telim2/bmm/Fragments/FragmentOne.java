@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +27,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.telim2.bmm.Activities.MainActivity;
 import com.example.telim2.bmm.Constants;
+import com.example.telim2.bmm.Models.LessonTableModel;
+import com.example.telim2.bmm.Others.MyAdapter;
 import com.example.telim2.bmm.Others.MySingleTon;
 import com.example.telim2.bmm.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -44,6 +50,8 @@ public class FragmentOne extends Fragment {
     int k=1,a=1;
     public static final String mypreference = "mypref";
     SharedPreferences sharedpreferences;
+    private List<LessonTableModel> modelList;
+    private RecyclerView.Adapter adapter;
 
     @Nullable
     @Override
@@ -59,25 +67,48 @@ public class FragmentOne extends Fragment {
         friday=(Button)view.findViewById(R.id.buttonFriday);
         ok=(Button)view.findViewById(R.id.buttonOk);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycleview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        sharedpreferences = this.getActivity().getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
 
+        modelList=new ArrayList<>();
+        sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
-//        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
+                       // Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
+
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            if (jsonObject.getString("status").equals("ok")){
+
+                                JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
+                                JSONObject jsonObjectDayone=jsonArray.getJSONObject(0);
+                                JSONArray jsonArraySubject=jsonObjectDayone.getJSONArray("subjects");
+                                for (int i=0;i<jsonArraySubject.length();i++){
+
+                                    JSONObject jsonObjectLesson=jsonArraySubject.getJSONObject(i);
+                                    String name=jsonObjectLesson.getString("name");
+                                    String grade=jsonObjectLesson.getString("grade");
+
+                                    LessonTableModel item=new LessonTableModel(name,grade);
+                                    modelList.add(item);
+
+
+                                }
+                                adapter=new MyAdapter(modelList,getActivity());
+                                recyclerView.setAdapter(adapter);
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
 
                     }
@@ -102,7 +133,6 @@ public class FragmentOne extends Fragment {
         monday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
                 if(k==1){
                     tuesday.setVisibility(View.GONE);
                     wednesday.setVisibility(View.GONE);
