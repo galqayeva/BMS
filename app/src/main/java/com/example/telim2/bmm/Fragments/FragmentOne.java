@@ -64,38 +64,39 @@ public class FragmentOne extends Fragment {
                 Context.MODE_PRIVATE);
 
 
-        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-            
-        });
-
-//        StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
+//        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //
-//                        Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_SHORT).show();
 //
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(getActivity(),"check your internet connectio",Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//        ){
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String,String> params=new HashMap<String, String>();
-//                params.put("api",sharedpreferences.getString("api", ""));
-//                params.put("getGradeList","1");
-//                return params;
 //            }
-//        };
-//        MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
+//        });
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(),"check your internet connectio",Toast.LENGTH_LONG).show();
+                    }
+                }
+        ){
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String, String>();
+                params.put("api",sharedpreferences.getString("api", ""));
+                params.put("getGradeList","1");
+                return params;
+            }
+        };
+        MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
 
 
         monday.setOnClickListener(new View.OnClickListener() {
