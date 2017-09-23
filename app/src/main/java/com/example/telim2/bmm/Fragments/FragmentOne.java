@@ -95,6 +95,7 @@ public class FragmentOne extends Fragment {
         modelList5=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
+        Toast.makeText(getActivity(),sharedpreferences.getString("api", ""), Toast.LENGTH_LONG).show();
         getGrades();
 
 
@@ -206,6 +207,7 @@ public class FragmentOne extends Fragment {
         });
 
 
+
         return view;
 
     }
@@ -216,6 +218,7 @@ public class FragmentOne extends Fragment {
                     @Override
                     public void onResponse(String response) {
 
+                        Toast.makeText(getActivity(),response, Toast.LENGTH_SHORT).show();
 
                         try {
                             JSONObject jsonObject=new JSONObject(response);
