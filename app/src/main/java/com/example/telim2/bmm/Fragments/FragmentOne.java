@@ -101,6 +101,8 @@ public class FragmentOne extends Fragment {
                     @Override
                     public void onResponse(String response) {
 
+                        Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+
 
                         try {
                             JSONObject jsonObject=new JSONObject(response);
