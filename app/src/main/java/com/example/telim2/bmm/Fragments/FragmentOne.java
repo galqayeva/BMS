@@ -95,13 +95,126 @@ public class FragmentOne extends Fragment {
         modelList5=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
+        getGrades();
 
+
+
+        monday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(k==1){
+                    tuesday.setVisibility(View.GONE);
+                    wednesday.setVisibility(View.GONE);
+                    thursday.setVisibility(View.GONE);
+                    friday.setVisibility(View.GONE);
+                    rV1.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    tuesday.setVisibility(View.VISIBLE);
+                    wednesday.setVisibility(View.VISIBLE);
+                    thursday.setVisibility(View.VISIBLE);
+                    friday.setVisibility(View.VISIBLE);
+                    rV1.setVisibility(View.GONE);
+                    k--;
+                }
+            }
+        });
+        tuesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(k==1){
+                    monday.setVisibility(View.GONE);
+                    wednesday.setVisibility(View.GONE);
+                    thursday.setVisibility(View.GONE);
+                    friday.setVisibility(View.GONE);
+                    rV2.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    monday.setVisibility(View.VISIBLE);
+                    wednesday.setVisibility(View.VISIBLE);
+                    thursday.setVisibility(View.VISIBLE);
+                    friday.setVisibility(View.VISIBLE);
+                    rV2.setVisibility(View.GONE);
+                    k--;
+                }
+            }
+        });
+        wednesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(k==1){
+                    monday.setVisibility(View.GONE);
+                    tuesday.setVisibility(View.GONE);
+                    thursday.setVisibility(View.GONE);
+                    friday.setVisibility(View.GONE);
+                    rV3.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    monday.setVisibility(View.VISIBLE);
+                    tuesday.setVisibility(View.VISIBLE);
+                    thursday.setVisibility(View.VISIBLE);
+                    friday.setVisibility(View.VISIBLE);
+                    rV3.setVisibility(View.GONE);
+                    k--;
+                }
+            }
+        });
+        thursday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(k==1){
+                    monday.setVisibility(View.GONE);
+                    tuesday.setVisibility(View.GONE);
+                    wednesday.setVisibility(View.GONE);
+                    friday.setVisibility(View.GONE);
+                    rV4.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    monday.setVisibility(View.VISIBLE);
+                    tuesday.setVisibility(View.VISIBLE);
+                    wednesday.setVisibility(View.VISIBLE);
+                    friday.setVisibility(View.VISIBLE);
+                    rV4.setVisibility(View.GONE);
+                    k--;
+                }
+            }
+        });
+        friday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(k==1){
+                    monday.setVisibility(View.GONE);
+                    tuesday.setVisibility(View.GONE);
+                    wednesday.setVisibility(View.GONE);
+                    thursday.setVisibility(View.GONE);
+                    rV5.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    monday.setVisibility(View.VISIBLE);
+                    tuesday.setVisibility(View.VISIBLE);
+                    wednesday.setVisibility(View.VISIBLE);
+                    thursday.setVisibility(View.VISIBLE);
+                    rV5.setVisibility(View.GONE);
+                    k--;
+                }
+            }
+        });
+
+
+        return view;
+
+    }
+
+    public void getGrades(){
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
-                        Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
 
 
                         try {
@@ -193,57 +306,5 @@ public class FragmentOne extends Fragment {
             }
         };
         MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
-
-
-
-        monday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(k==1){
-                    tuesday.setVisibility(View.GONE);
-                    wednesday.setVisibility(View.GONE);
-                    thursday.setVisibility(View.GONE);
-                    friday.setVisibility(View.GONE);
-                    rV1.setVisibility(View.VISIBLE);
-                    k++;
-                }
-                else{
-                    tuesday.setVisibility(View.VISIBLE);
-                    wednesday.setVisibility(View.VISIBLE);
-                    thursday.setVisibility(View.VISIBLE);
-                    friday.setVisibility(View.VISIBLE);
-                    rV1.setVisibility(View.GONE);
-                    k--;
-                }
-            }
-        });
-        tuesday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(a==1){
-                    monday.setVisibility(View.GONE);
-                    wednesday.setVisibility(View.GONE);
-                    thursday.setVisibility(View.GONE);
-                    friday.setVisibility(View.GONE);
-                    rV1.setVisibility(View.GONE);
-                    rV2.setVisibility(View.VISIBLE);
-                    a++;
-                }
-                else{
-                    monday.setVisibility(View.VISIBLE);
-                    wednesday.setVisibility(View.VISIBLE);
-                    thursday.setVisibility(View.VISIBLE);
-                    friday.setVisibility(View.VISIBLE);
-                    rV2.setVisibility(View.GONE);
-                    a--;
-                }
-            }
-        });
-
-
-        return view;
-
     }
-
-
 }
