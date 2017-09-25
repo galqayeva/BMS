@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -212,7 +213,7 @@ public class FragmentOne extends Fragment {
     }
 
     public void getGrades(){
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
+        final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -294,6 +295,7 @@ public class FragmentOne extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getActivity(),"check your internet connectio",Toast.LENGTH_LONG).show();
+
                     }
                 }
         ){
@@ -306,6 +308,7 @@ public class FragmentOne extends Fragment {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 }
