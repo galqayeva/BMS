@@ -7,6 +7,7 @@ package com.example.telim2.bmm.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -96,16 +97,19 @@ public class FragmentOne extends Fragment {
         rV5.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-
-
-        modelList1=new ArrayList<>();
-        modelList2=new ArrayList<>();
-        modelList3=new ArrayList<>();
-        modelList4=new ArrayList<>();
-        modelList5=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
         getGrades(weekN,monthN);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                monthN=Integer.toString(spinner.getSelectedItemPosition()+4);
+                weekN="1";
+                Log.d("nujm",monthN);
+                getGrades(weekN,monthN);
+            }
+        });
 
 
         week1.setOnClickListener(new View.OnClickListener() {
@@ -258,6 +262,14 @@ public class FragmentOne extends Fragment {
     }
 
     public void getGrades(final String weekNumber, final String monthNumber){
+
+        modelList1=new ArrayList<>();
+        modelList2=new ArrayList<>();
+        modelList3=new ArrayList<>();
+        modelList4=new ArrayList<>();
+        modelList5=new ArrayList<>();
+
+
         final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -270,7 +282,7 @@ public class FragmentOne extends Fragment {
 
                                 JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
 
-                                for (int i=1;i<=jsonArray.length();i++){
+                                for (int i=0;i<jsonArray.length();i++){
                                     JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
 
                                     int length=jsonObjectdemo.getJSONArray("subjects").length();
@@ -279,7 +291,7 @@ public class FragmentOne extends Fragment {
                                         JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
                                         String name=jsonObjectLesson.getString("name");
                                         String grade=jsonObjectLesson.getString("grade");
-                                        int number=j;
+                                        int number=j+1;
 
                                         if(dm<length){
                                             LessonTableModel demo=new LessonTableModel(name,grade,number);
