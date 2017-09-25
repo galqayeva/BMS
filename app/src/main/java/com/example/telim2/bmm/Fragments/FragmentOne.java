@@ -97,6 +97,13 @@ public class FragmentOne extends Fragment {
         rV5.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
+
+
+        modelList1=new ArrayList<>();
+        modelList2=new ArrayList<>();
+        modelList3=new ArrayList<>();
+        modelList4=new ArrayList<>();
+        modelList5=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
         getGrades(weekN,monthN);
@@ -104,8 +111,15 @@ public class FragmentOne extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monthN=Integer.toString(spinner.getSelectedItemPosition()+4);
+
+                if(spinner.getSelectedItemPosition()<4){
+                    monthN=Integer.toString(spinner.getSelectedItemPosition()+9);
+                }
+                else{
+                    monthN=Integer.toString(spinner.getSelectedItemPosition()-3);
+                }
                 weekN="1";
+
                 Log.d("nujm",monthN);
                 getGrades(weekN,monthN);
             }
@@ -263,12 +277,8 @@ public class FragmentOne extends Fragment {
 
     public void getGrades(final String weekNumber, final String monthNumber){
 
-        modelList1=new ArrayList<>();
-        modelList2=new ArrayList<>();
-        modelList3=new ArrayList<>();
-        modelList4=new ArrayList<>();
-        modelList5=new ArrayList<>();
 
+        rV1.setAdapter(null);
 
         final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
