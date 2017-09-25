@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,13 +49,14 @@ public class FragmentOne extends Fragment {
 
     Spinner spinner;
     Button ok,monday,tuesday,wednesday,thursday,friday;
+    Button week1,week2,week3,week4,week5;
     RecyclerView rV1,rV2,rV3,rV4,rV5;
     int k=1,a=1,dm=0;
     public static final String mypreference = "mypref";
     SharedPreferences sharedpreferences;
     private List<LessonTableModel> modelList1,modelList2,modelList3,modelList4,modelList5;
     private RecyclerView.Adapter adapter1,adapter2,adapter3,adapter4,adapter5;
-
+    String weekN="",monthN="";
 
     @Nullable
     @Override
@@ -69,6 +71,13 @@ public class FragmentOne extends Fragment {
         thursday=(Button)view.findViewById(R.id.buttonThursday);
         friday=(Button)view.findViewById(R.id.buttonFriday);
         ok=(Button)view.findViewById(R.id.buttonOk);
+
+        week1=(Button)view.findViewById(R.id.buttonWeek1);
+        week2=(Button)view.findViewById(R.id.buttonWeek2);
+        week3=(Button)view.findViewById(R.id.buttonWeek3);
+        week4=(Button)view.findViewById(R.id.buttonWeek4);
+        week5=(Button)view.findViewById(R.id.buttonWeek5);
+
 
         rV1=(RecyclerView)view.findViewById(R.id.recycleview);
         rV1.setHasFixedSize(true);
@@ -96,9 +105,45 @@ public class FragmentOne extends Fragment {
         modelList5=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
-        getGrades();
+        getGrades(weekN,monthN);
 
 
+        week1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weekN="1";
+                getGrades(weekN,monthN);
+            }
+        });
+        week2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weekN="2";
+                getGrades(weekN,monthN);
+
+            }
+        });
+        week3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weekN="3";
+                getGrades(weekN,monthN);
+            }
+        });
+        week4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weekN="4";
+                getGrades(weekN,monthN);
+            }
+        });
+        week5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weekN="5";
+                getGrades(weekN,monthN);
+            }
+        });
 
         monday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,12 +257,12 @@ public class FragmentOne extends Fragment {
 
     }
 
-    public void getGrades(){
+    public void getGrades(final String weekNumber, final String monthNumber){
         final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        Log.d("gunay",response);
 
                         try {
                             JSONObject jsonObject=new JSONObject(response);
@@ -225,7 +270,7 @@ public class FragmentOne extends Fragment {
 
                                 JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
 
-                                for (int i=0;i<2;i++){
+                                for (int i=1;i<=jsonArray.length();i++){
                                     JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
 
                                     int length=jsonObjectdemo.getJSONArray("subjects").length();
@@ -234,29 +279,30 @@ public class FragmentOne extends Fragment {
                                         JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
                                         String name=jsonObjectLesson.getString("name");
                                         String grade=jsonObjectLesson.getString("grade");
+                                        int number=j;
 
                                         if(dm<length){
-                                            LessonTableModel demo=new LessonTableModel(name,grade);
+                                            LessonTableModel demo=new LessonTableModel(name,grade,number);
                                             modelList1.add(demo);
                                             dm++;
                                         }
                                         else if (dm>=length && dm<2*length){
-                                            LessonTableModel demo2=new LessonTableModel(name,grade);
+                                            LessonTableModel demo2=new LessonTableModel(name,grade,number);
                                             modelList2.add(demo2);
                                             dm++;
                                         }
                                         else if (dm>=2*length && dm<3*length){
-                                            LessonTableModel demo3=new LessonTableModel(name,grade);
+                                            LessonTableModel demo3=new LessonTableModel(name,grade,number);
                                             modelList3.add(demo3);
                                             dm++;
                                         }
                                         else if (dm>=3*length && dm<4*length){
-                                            LessonTableModel demo4=new LessonTableModel(name,grade);
+                                            LessonTableModel demo4=new LessonTableModel(name,grade,number);
                                             modelList4.add(demo4);
                                             dm++;
                                         }
                                         else if (dm>=4*length && dm<5*length){
-                                            LessonTableModel demo5=new LessonTableModel(name,grade);
+                                            LessonTableModel demo5=new LessonTableModel(name,grade,number);
                                             modelList5.add(demo5);
                                             dm++;
                                         }
@@ -294,7 +340,7 @@ public class FragmentOne extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(),"check your internet connectio",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(),"Check your Internet Connection",Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -303,12 +349,12 @@ public class FragmentOne extends Fragment {
                 Map<String,String> params=new HashMap<String, String>();
                 params.put("api",sharedpreferences.getString("api", ""));
                 params.put("getGradeList","1");
-                params.put("week","");
-                params.put("month","");
+                params.put("week",weekNumber);
+                params.put("month",monthNumber);
                 return params;
             }
         };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(2 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 }

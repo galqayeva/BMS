@@ -8,11 +8,20 @@ public class LessonTableModel {
 
     private  String subjectName;
     private String subjectGrade;
+    private int number;
 
+    public int getNumber() {
+        return number;
+    }
 
-    public LessonTableModel(String subjectName, String subjectGrade) {
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public LessonTableModel(String subjectName, String subjectGrade, int number) {
         this.subjectName = subjectName;
         this.subjectGrade = subjectGrade;
+        this.number = number;
     }
 
     public String getSubjectName() {

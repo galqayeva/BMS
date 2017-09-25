@@ -58,6 +58,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         holder.subjectName.setText(model.getSubjectName());
         holder.subjectGrade.setText(model.getSubjectGrade());
+        holder.subjectNumber.setText(model.getNumber()+")");
+
 
     }
 
@@ -69,13 +71,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public  TextView subjectName,subjectGrade;
+        public  TextView subjectName,subjectGrade,subjectNumber;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             subjectGrade=(TextView)itemView.findViewById(R.id.subjectGrade);
             subjectName=(TextView)itemView.findViewById(R.id.subjectName);
+            subjectNumber=(TextView)itemView.findViewById(R.id.subjectNumber);
         }
     }
 }
