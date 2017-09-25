@@ -269,8 +269,7 @@ public class FragmentOne extends Fragment {
             }
         });
 
-
-
+        
         return view;
 
     }
