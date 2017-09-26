@@ -269,7 +269,7 @@ public class FragmentOne extends Fragment {
             }
         });
 
-        
+
         return view;
 
     }
@@ -277,7 +277,7 @@ public class FragmentOne extends Fragment {
     public void getGrades(final String weekNumber, final String monthNumber){
 
 
-        rV1.setAdapter(null);
+
 
         final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
