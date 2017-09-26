@@ -26,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.telim2.bmm.Models.LessonTableModel;
 import com.example.telim2.bmm.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.subjectNumber.setText(model.getNumber()+")");
 
 
+    }
+
+
+
+    public  void updateData(List<LessonTableModel> viewModels) {
+        modelList.clear();
+        modelList.addAll(viewModels);
+        notifyDataSetChanged();
     }
 
     @Override
