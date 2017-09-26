@@ -99,7 +99,6 @@ public class FragmentOne extends Fragment {
 
 
 
-
         modelList1=new ArrayList<>();
         modelList2=new ArrayList<>();
         modelList3=new ArrayList<>();
@@ -122,7 +121,15 @@ public class FragmentOne extends Fragment {
                 weekN="1";
 
                 Log.d("nujm",monthN);
-                updateGrades(weekN,monthN);
+                rV1.destroyDrawingCache();
+                rV2.destroyDrawingCache();
+                rV3.destroyDrawingCache();
+                rV4.destroyDrawingCache();
+                rV5.destroyDrawingCache();
+
+
+
+               // getGrades(weekN,monthN);
 
             }
         });
@@ -276,115 +283,9 @@ public class FragmentOne extends Fragment {
 
     }
 
-    public void updateGrades(final String weekNumber,final  String monthNumber){
-
-
-
-
-        final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("gunay",response);
-
-                        try {
-                            JSONObject jsonObject=new JSONObject(response);
-                            if (jsonObject.getString("status").equals("ok")){
-
-                                JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
-
-                                for (int i=0;i<jsonArray.length();i++){
-                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
-
-                                    int length=jsonObjectdemo.getJSONArray("subjects").length();
-                                    for (int j=0;j<length;j++){
-
-                                        JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
-                                        String name=jsonObjectLesson.getString("name");
-                                        String grade=jsonObjectLesson.getString("grade");
-                                        int number=j+1;
-
-                                        if(dm<length){
-                                            LessonTableModel demo=new LessonTableModel(name,grade,number);
-                                            modelList1.add(demo);
-                                            dm++;
-                                        }
-                                        else if (dm>=length && dm<2*length){
-                                            LessonTableModel demo2=new LessonTableModel(name,grade,number);
-                                            modelList2.add(demo2);
-                                            dm++;
-                                        }
-                                        else if (dm>=2*length && dm<3*length){
-                                            LessonTableModel demo3=new LessonTableModel(name,grade,number);
-                                            modelList3.add(demo3);
-                                            dm++;
-                                        }
-                                        else if (dm>=3*length && dm<4*length){
-                                            LessonTableModel demo4=new LessonTableModel(name,grade,number);
-                                            modelList4.add(demo4);
-                                            dm++;
-                                        }
-                                        else if (dm>=4*length && dm<5*length){
-                                            LessonTableModel demo5=new LessonTableModel(name,grade,number);
-                                            modelList5.add(demo5);
-                                            dm++;
-                                        }
-
-                                    }
-
-                                    MyAdapter adapter1=new MyAdapter(modelList1,getActivity());
-                                    adapter1.updateData( modelList1);
-
-                                    //rV1.setAdapter(adapter1);
-
-                                    adapter2=new MyAdapter(modelList2,getActivity());
-                                    rV2.setAdapter(adapter2);
-
-                                    adapter3=new MyAdapter(modelList3,getActivity());
-                                    rV3.setAdapter(adapter3);
-
-                                    adapter4=new MyAdapter(modelList4,getActivity());
-                                    rV4.setAdapter(adapter4);
-
-                                    adapter5=new MyAdapter(modelList5,getActivity());
-                                    rV5.setAdapter(adapter5);
-
-
-                                }
-
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(),"Check your Internet Connection",Toast.LENGTH_LONG).show();
-
-                    }
-                }
-        ){
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String, String>();
-                params.put("api",sharedpreferences.getString("api", ""));
-                params.put("getGradeList","1");
-                params.put("week",weekNumber);
-                params.put("month",monthNumber);
-                return params;
-            }
-        };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(2 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
-
-    }
-
     public void getGrades(final String weekNumber, final String monthNumber){
+
+
 
 
 
