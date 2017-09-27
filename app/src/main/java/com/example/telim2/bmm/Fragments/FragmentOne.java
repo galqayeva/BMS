@@ -39,7 +39,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -121,15 +120,8 @@ public class FragmentOne extends Fragment {
                 weekN="1";
 
                 Log.d("nujm",monthN);
-                rV1.destroyDrawingCache();
-                rV2.destroyDrawingCache();
-                rV3.destroyDrawingCache();
-                rV4.destroyDrawingCache();
-                rV5.destroyDrawingCache();
 
-
-
-               // getGrades(weekN,monthN);
+                getGrades(weekN,monthN);
 
             }
         });
@@ -278,17 +270,12 @@ public class FragmentOne extends Fragment {
             }
         });
 
-
         return view;
 
     }
+    
 
     public void getGrades(final String weekNumber, final String monthNumber){
-
-
-
-
-
 
         final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {

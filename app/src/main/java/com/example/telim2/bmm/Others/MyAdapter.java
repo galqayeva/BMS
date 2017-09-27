@@ -46,6 +46,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         this.context = context;
     }
 
+    
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.lessontable,parent,false);
@@ -65,12 +67,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
 
-
-    public  void updateData(List<LessonTableModel> viewModels) {
-        modelList.clear();
-        modelList.addAll(viewModels);
-        notifyDataSetChanged();
-    }
 
     @Override
     public int getItemCount() {
