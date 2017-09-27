@@ -1,7 +1,7 @@
 package com.example.telim2.bmm.Fragments;
 
 /**
- * Created by telim2 on 20.09.2017.
+ * Created by galqayeva on 20.09.2017.
  */
 
 import android.content.Context;
@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,7 +27,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.example.telim2.bmm.Activities.MainActivity;
 import com.example.telim2.bmm.Constants;
 import com.example.telim2.bmm.Models.LessonTableModel;
 import com.example.telim2.bmm.Others.MyAdapter;
