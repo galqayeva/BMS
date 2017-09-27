@@ -58,6 +58,7 @@ public class FragmentOne extends Fragment {
     private RecyclerView.Adapter adapter1,adapter2,adapter3,adapter4,adapter5;
     String weekN="",monthN="";
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -273,9 +274,11 @@ public class FragmentOne extends Fragment {
         return view;
 
     }
-    
+
 
     public void getGrades(final String weekNumber, final String monthNumber){
+
+
 
         final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
@@ -290,9 +293,10 @@ public class FragmentOne extends Fragment {
                                 JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
 
                                 for (int i=0;i<jsonArray.length();i++){
-                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
 
+                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
                                     int length=jsonObjectdemo.getJSONArray("subjects").length();
+
                                     for (int j=0;j<length;j++){
 
                                         JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
