@@ -1,7 +1,7 @@
 package com.example.telim2.bmm.Others;
 
 /**
- * Created by telim2 on 20.09.2017.
+ * Created by galqayeva on 20.09.2017.
  */
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

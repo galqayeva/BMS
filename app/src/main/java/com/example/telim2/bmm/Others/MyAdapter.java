@@ -1,7 +1,7 @@
 package com.example.telim2.bmm.Others;
 
 /**
- * Created by telim2 on 23.09.2017.
+ * Created by galqayeva on 23.09.2017.
  */
 
 

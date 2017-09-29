@@ -1,7 +1,7 @@
 package com.example.telim2.bmm;
 
 /**
- * Created by telim2 on 18.09.2017.
+ * Created by galqayeva2 on 18.09.2017.
  */
 
 public class Constants {
