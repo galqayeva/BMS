@@ -6,6 +6,7 @@ package com.example.telim2.bmm.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -54,7 +55,7 @@ public class FragmentOne extends Fragment {
     private List<LessonTableModel> modelList1,modelList2,modelList3,modelList4,modelList5;
     private RecyclerView.Adapter adapter1,adapter2,adapter3,adapter4,adapter5;
     String weekN="",monthN="";
-    DatabaseHelper myDB;
+    DatabaseHelper myDB,myDB2;
 
 
     @Nullable
@@ -105,6 +106,45 @@ public class FragmentOne extends Fragment {
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
         insertDB();
+
+        myDB = new DatabaseHelper(getActivity());
+
+        Cursor data = myDB.getListContents();
+        if(data.getCount() == 0){
+            Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
+        }else{
+            while(data.moveToNext()){
+                while(data.moveToNext()){
+
+
+                    LessonTableModel demo=new LessonTableModel(data.getString(1),data.getString(2),'1');
+                    modelList1.add(demo);
+                    adapter1=new MyAdapter(modelList1,getActivity());
+                    rV1.setAdapter(adapter1);
+                }
+            }
+        }
+        monday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(k==1){
+                    tuesday.setVisibility(View.GONE);
+                    wednesday.setVisibility(View.GONE);
+                    thursday.setVisibility(View.GONE);
+                    friday.setVisibility(View.GONE);
+                    rV1.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    tuesday.setVisibility(View.VISIBLE);
+                    wednesday.setVisibility(View.VISIBLE);
+                    thursday.setVisibility(View.VISIBLE);
+                    friday.setVisibility(View.VISIBLE);
+                    rV1.setVisibility(View.GONE);
+                    k--;
+                }
+            }
+        });
 
         return view;
 
