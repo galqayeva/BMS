@@ -27,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.telim2.bmm.Constants;
 import com.example.telim2.bmm.Models.LessonTableModel;
+import com.example.telim2.bmm.Others.DatabaseHelper;
 import com.example.telim2.bmm.Others.MyAdapter;
 import com.example.telim2.bmm.Others.MySingleTon;
 import com.example.telim2.bmm.R;
@@ -53,6 +54,7 @@ public class FragmentOne extends Fragment {
     private List<LessonTableModel> modelList1,modelList2,modelList3,modelList4,modelList5;
     private RecyclerView.Adapter adapter1,adapter2,adapter3,adapter4,adapter5;
     String weekN="",monthN="";
+    DatabaseHelper myDB;
 
 
     @Nullable
@@ -102,6 +104,110 @@ public class FragmentOne extends Fragment {
         modelList5=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
+        insertDB();
+
+        return view;
+
+    }
+
+    public void  insertDB(){
+
+        final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("gunay",response);
+
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            if (jsonObject.getString("status").equals("ok")){
+
+                                JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
+
+                                for (int i=0;i<jsonArray.length();i++){
+
+                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
+                                    int length=jsonObjectdemo.getJSONArray("subjects").length();
+
+                                    for (int j=0;j<length;j++){
+
+                                        JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
+                                        String name=jsonObjectLesson.getString("name");
+                                        String grade=jsonObjectLesson.getString("grade");
+                                        int number=j+1;
+
+                                        if(dm<length){
+                                            addData(grade,name,"1");
+                                            dm++;
+                                        }
+//                                        else if (dm>=length && dm<2*length){
+//                                            addData(grade,name,"2");
+//                                            dm++;
+//                                        }
+//                                        else if (dm>=2*length && dm<3*length){
+//                                            addData(grade,name,"3");
+//                                            dm++;
+//                                        }
+//                                        else if (dm>=3*length && dm<4*length){
+//                                            addData(grade,name,"4");
+//                                            dm++;
+//                                        }
+//                                        else if (dm>=4*length && dm<5*length){
+//                                            addData(grade,name,"5");
+//                                            dm++;
+//                                        }
+
+                                    }
+
+
+
+
+                                }
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(),"Check your Internet Connection",Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        ){
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String, String>();
+                params.put("api",sharedpreferences.getString("api", ""));
+                params.put("getGradeList","1");
+                params.put("week","weekNumber");
+                params.put("month","monthNumber");
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(2 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+    public void addData(String grade,String subject,String day) {
+
+        boolean insertData = myDB.addData(grade,subject,day);
+
+        if(insertData==true){
+            Toast.makeText(getActivity(), "Data Successfully Inserted!", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getActivity(), "Something went wrong :(.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+/*
+    public  class delete(){
         getGrades(weekN,monthN);
 
         ok.setOnClickListener(new View.OnClickListener() {
@@ -267,11 +373,9 @@ public class FragmentOne extends Fragment {
             }
         });
 
-        return view;
-
     }
-
-
+    */
+    /*
     public void getGrades(final String weekNumber, final String monthNumber){
 
 
@@ -376,4 +480,5 @@ public class FragmentOne extends Fragment {
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(2 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
+    */
 }
