@@ -119,8 +119,28 @@ public class FragmentOne extends Fragment {
 
                 Log.d("nujm",monthN);
 
-               // insertDB(weekN,monthN);
-                myDB.deleteAll();
+                insertDB(weekN,monthN);
+
+               // myDB.deleteAll();
+
+                Cursor data = myDB.getListContents();
+                if(data.getCount() == 0){
+                    Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
+                }else{
+
+                    modelList1.clear();
+
+                        while(data.moveToNext()){
+
+                            LessonTableModel demo=new LessonTableModel(data.getString(2),data.getString(1),'1');
+                            modelList1.add(demo);
+
+                        }
+
+                    adapter1=new MyAdapter(modelList1,getActivity());
+                    rV1.setAdapter(adapter1);
+                }
+
 
 
 
@@ -149,6 +169,103 @@ public class FragmentOne extends Fragment {
                 }
             }
         });
+
+        myDB = new DatabaseHelper(getActivity());
+
+        Cursor data = myDB.getListContents();
+        if(data.getCount() == 0){
+            Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
+        }else{
+            while(data.moveToNext()){
+                while(data.moveToNext()){
+
+
+                    LessonTableModel demo=new LessonTableModel(data.getString(2),data.getString(1),'1');
+                    modelList1.add(demo);
+                    adapter1=new MyAdapter(modelList1,getActivity());
+                    rV1.setAdapter(adapter1);
+                }
+            }
+        }
+
+
+        return view;
+
+    }
+
+    public void  insertDB(final String weekNumber, final String monthNumber){
+
+        final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            if (jsonObject.getString("status").equals("ok")){
+                        Log.d("gunay",response);
+
+
+                                JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
+
+                                for (int i=0;i<jsonArray.length();i++){
+
+                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
+                                    int length=jsonObjectdemo.getJSONArray("subjects").length();
+
+                                    for (int j=0;j<length;j++){
+
+                                        JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
+                                        String name=jsonObjectLesson.getString("name");
+                                        String grade=jsonObjectLesson.getString("grade");
+                                        int number=j+1;
+
+                                        if(dm<length){
+                                            addData(grade,name,"1");
+                                            dm++;
+                                        }
+
+                                    }
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(),"Check your Internet Connection",Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        ){
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String, String>();
+                params.put("api",sharedpreferences.getString("api", ""));
+                params.put("getGradeList","1");
+                params.put("week",weekNumber);
+                params.put("month",monthNumber);
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(2 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+    public void addData(String grade,String subject,String day) {
+
+        boolean insertData = myDB.addData(grade,subject,day);
+
+        if(!insertData==true)
+            Toast.makeText(getActivity(), "Something went wrong :(.", Toast.LENGTH_LONG).show();
+
+    }
+
+    public void delete(){
+
         tuesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -233,111 +350,6 @@ public class FragmentOne extends Fragment {
                 }
             }
         });
-
-       // insertDB(weekN,monthN);
-
-        myDB = new DatabaseHelper(getActivity());
-
-        Cursor data = myDB.getListContents();
-        if(data.getCount() == 0){
-            Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
-        }else{
-            while(data.moveToNext()){
-                while(data.moveToNext()){
-
-
-                    LessonTableModel demo=new LessonTableModel(data.getString(2),data.getString(1),'1');
-                    modelList1.add(demo);
-                    adapter1=new MyAdapter(modelList1,getActivity());
-                    rV1.setAdapter(adapter1);
-                }
-            }
-        }
-
-
-        return view;
-
-    }
-
-    public void  insertDB(final String weekNumber, final String monthNumber){
-
-        final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("gunay",response);
-
-                        try {
-                            JSONObject jsonObject=new JSONObject(response);
-                            if (jsonObject.getString("status").equals("ok")){
-
-                                JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
-
-                                for (int i=0;i<jsonArray.length();i++){
-
-                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
-                                    int length=jsonObjectdemo.getJSONArray("subjects").length();
-
-                                    for (int j=0;j<length;j++){
-
-                                        JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
-                                        String name=jsonObjectLesson.getString("name");
-                                        String grade=jsonObjectLesson.getString("grade");
-                                        int number=j+1;
-
-                                        if(dm<length){
-                                            addData(grade,name,"1");
-                                            dm++;
-                                        }
-                                       else if (dm>=length && dm<2*length){
-                                            addData(grade,name,"2");
-                                            dm++;
-                                        }
-
-                                    }
-
-                                }
-
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(),"Check your Internet Connection",Toast.LENGTH_LONG).show();
-
-                    }
-                }
-        ){
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String, String>();
-                params.put("api",sharedpreferences.getString("api", ""));
-                params.put("getGradeList","1");
-                params.put("week",weekNumber);
-                params.put("month",monthNumber);
-                return params;
-            }
-        };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(2 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
-    }
-
-    public void addData(String grade,String subject,String day) {
-
-        boolean insertData = myDB.addData(grade,subject,day);
-
-        if(insertData==true){
-           // Toast.makeText(getActivity(), "Data Successfully Inserted!", Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(getActivity(), "Something went wrong :(.", Toast.LENGTH_LONG).show();
-        }
     }
 
 
