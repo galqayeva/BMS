@@ -105,151 +105,6 @@ public class FragmentOne extends Fragment {
         modelList5=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
-        insertDB();
-
-        myDB = new DatabaseHelper(getActivity());
-
-        Cursor data = myDB.getListContents();
-        if(data.getCount() == 0){
-            Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
-        }else{
-            while(data.moveToNext()){
-                while(data.moveToNext()){
-
-
-                    LessonTableModel demo=new LessonTableModel(data.getString(1),data.getString(2),'1');
-                    modelList1.add(demo);
-                    adapter1=new MyAdapter(modelList1,getActivity());
-                    rV1.setAdapter(adapter1);
-                }
-            }
-        }
-        monday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(k==1){
-                    tuesday.setVisibility(View.GONE);
-                    wednesday.setVisibility(View.GONE);
-                    thursday.setVisibility(View.GONE);
-                    friday.setVisibility(View.GONE);
-                    rV1.setVisibility(View.VISIBLE);
-                    k++;
-                }
-                else{
-                    tuesday.setVisibility(View.VISIBLE);
-                    wednesday.setVisibility(View.VISIBLE);
-                    thursday.setVisibility(View.VISIBLE);
-                    friday.setVisibility(View.VISIBLE);
-                    rV1.setVisibility(View.GONE);
-                    k--;
-                }
-            }
-        });
-
-        return view;
-
-    }
-
-    public void  insertDB(){
-
-        final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("gunay",response);
-
-                        try {
-                            JSONObject jsonObject=new JSONObject(response);
-                            if (jsonObject.getString("status").equals("ok")){
-
-                                JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
-
-                                for (int i=0;i<jsonArray.length();i++){
-
-                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
-                                    int length=jsonObjectdemo.getJSONArray("subjects").length();
-
-                                    for (int j=0;j<length;j++){
-
-                                        JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
-                                        String name=jsonObjectLesson.getString("name");
-                                        String grade=jsonObjectLesson.getString("grade");
-                                        int number=j+1;
-
-                                        if(dm<length){
-                                            addData(grade,name,"1");
-                                            dm++;
-                                        }
-//                                        else if (dm>=length && dm<2*length){
-//                                            addData(grade,name,"2");
-//                                            dm++;
-//                                        }
-//                                        else if (dm>=2*length && dm<3*length){
-//                                            addData(grade,name,"3");
-//                                            dm++;
-//                                        }
-//                                        else if (dm>=3*length && dm<4*length){
-//                                            addData(grade,name,"4");
-//                                            dm++;
-//                                        }
-//                                        else if (dm>=4*length && dm<5*length){
-//                                            addData(grade,name,"5");
-//                                            dm++;
-//                                        }
-
-                                    }
-
-
-
-
-                                }
-
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(),"Check your Internet Connection",Toast.LENGTH_LONG).show();
-
-                    }
-                }
-        ){
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String, String>();
-                params.put("api",sharedpreferences.getString("api", ""));
-                params.put("getGradeList","1");
-                params.put("week","weekNumber");
-                params.put("month","monthNumber");
-                return params;
-            }
-        };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(2 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
-    }
-
-    public void addData(String grade,String subject,String day) {
-
-        boolean insertData = myDB.addData(grade,subject,day);
-
-        if(insertData==true){
-            Toast.makeText(getActivity(), "Data Successfully Inserted!", Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(getActivity(), "Something went wrong :(.", Toast.LENGTH_LONG).show();
-        }
-    }
-
-/*
-    public  class delete(){
-        getGrades(weekN,monthN);
-
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -264,48 +119,14 @@ public class FragmentOne extends Fragment {
 
                 Log.d("nujm",monthN);
 
-                getGrades(weekN,monthN);
+               // insertDB(weekN,monthN);
+                myDB.deleteAll();
+
+
 
             }
         });
 
-
-        week1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weekN="1";
-                getGrades(weekN,monthN);
-            }
-        });
-        week2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weekN="2";
-                getGrades(weekN,monthN);
-
-            }
-        });
-        week3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weekN="3";
-                getGrades(weekN,monthN);
-            }
-        });
-        week4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weekN="4";
-                getGrades(weekN,monthN);
-            }
-        });
-        week5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weekN="5";
-                getGrades(weekN,monthN);
-            }
-        });
 
         monday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -413,12 +234,32 @@ public class FragmentOne extends Fragment {
             }
         });
 
+       // insertDB(weekN,monthN);
+
+        myDB = new DatabaseHelper(getActivity());
+
+        Cursor data = myDB.getListContents();
+        if(data.getCount() == 0){
+            Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
+        }else{
+            while(data.moveToNext()){
+                while(data.moveToNext()){
+
+
+                    LessonTableModel demo=new LessonTableModel(data.getString(2),data.getString(1),'1');
+                    modelList1.add(demo);
+                    adapter1=new MyAdapter(modelList1,getActivity());
+                    rV1.setAdapter(adapter1);
+                }
+            }
+        }
+
+
+        return view;
+
     }
-    */
-    /*
-    public void getGrades(final String weekNumber, final String monthNumber){
 
-
+    public void  insertDB(final String weekNumber, final String monthNumber){
 
         final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
@@ -445,48 +286,15 @@ public class FragmentOne extends Fragment {
                                         int number=j+1;
 
                                         if(dm<length){
-                                            LessonTableModel demo=new LessonTableModel(name,grade,number);
-                                            modelList1.add(demo);
+                                            addData(grade,name,"1");
                                             dm++;
                                         }
-                                        else if (dm>=length && dm<2*length){
-                                            LessonTableModel demo2=new LessonTableModel(name,grade,number);
-                                            modelList2.add(demo2);
-                                            dm++;
-                                        }
-                                        else if (dm>=2*length && dm<3*length){
-                                            LessonTableModel demo3=new LessonTableModel(name,grade,number);
-                                            modelList3.add(demo3);
-                                            dm++;
-                                        }
-                                        else if (dm>=3*length && dm<4*length){
-                                            LessonTableModel demo4=new LessonTableModel(name,grade,number);
-                                            modelList4.add(demo4);
-                                            dm++;
-                                        }
-                                        else if (dm>=4*length && dm<5*length){
-                                            LessonTableModel demo5=new LessonTableModel(name,grade,number);
-                                            modelList5.add(demo5);
+                                       else if (dm>=length && dm<2*length){
+                                            addData(grade,name,"2");
                                             dm++;
                                         }
 
                                     }
-
-                                    adapter1=new MyAdapter(modelList1,getActivity());
-                                    rV1.setAdapter(adapter1);
-
-                                    adapter2=new MyAdapter(modelList2,getActivity());
-                                    rV2.setAdapter(adapter2);
-
-                                    adapter3=new MyAdapter(modelList3,getActivity());
-                                    rV3.setAdapter(adapter3);
-
-                                    adapter4=new MyAdapter(modelList4,getActivity());
-                                    rV4.setAdapter(adapter4);
-
-                                    adapter5=new MyAdapter(modelList5,getActivity());
-                                    rV5.setAdapter(adapter5);
-
 
                                 }
 
@@ -520,5 +328,17 @@ public class FragmentOne extends Fragment {
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(2 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
-    */
+
+    public void addData(String grade,String subject,String day) {
+
+        boolean insertData = myDB.addData(grade,subject,day);
+
+        if(insertData==true){
+           // Toast.makeText(getActivity(), "Data Successfully Inserted!", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getActivity(), "Something went wrong :(.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
 }
