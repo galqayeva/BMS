@@ -72,37 +72,11 @@ public class FragmentOne extends Fragment {
         friday=(Button)view.findViewById(R.id.buttonFriday);
         ok=(Button)view.findViewById(R.id.buttonOk);
 
-        week1=(Button)view.findViewById(R.id.buttonWeek1);
-        week2=(Button)view.findViewById(R.id.buttonWeek2);
-        week3=(Button)view.findViewById(R.id.buttonWeek3);
-        week4=(Button)view.findViewById(R.id.buttonWeek4);
-        week5=(Button)view.findViewById(R.id.buttonWeek5);
-
-
         rV1=(RecyclerView)view.findViewById(R.id.recycleview);
         rV1.setHasFixedSize(true);
         rV1.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rV2=(RecyclerView)view.findViewById(R.id.recycleview2);
-        rV2.setHasFixedSize(true);
-        rV2.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rV3=(RecyclerView)view.findViewById(R.id.recycleview3);
-        rV3.setHasFixedSize(true);
-        rV3.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rV4=(RecyclerView)view.findViewById(R.id.recycleview4);
-        rV4.setHasFixedSize(true);
-        rV4.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rV5=(RecyclerView)view.findViewById(R.id.recycleview5);
-        rV5.setHasFixedSize(true);
-        rV5.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-
 
         modelList1=new ArrayList<>();
-        modelList2=new ArrayList<>();
-        modelList3=new ArrayList<>();
-        modelList4=new ArrayList<>();
-        modelList5=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
         ok.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +95,7 @@ public class FragmentOne extends Fragment {
 
                 insertDB(weekN,monthN);
 
-               // myDB.deleteAll();
+                // myDB.deleteAll();
 
                 Cursor data = myDB.getListContents();
                 if(data.getCount() == 0){
@@ -130,12 +104,12 @@ public class FragmentOne extends Fragment {
 
                     modelList1.clear();
 
-                        while(data.moveToNext()){
+                    while(data.moveToNext()){
 
-                            LessonTableModel demo=new LessonTableModel(data.getString(2),data.getString(1),'1');
-                            modelList1.add(demo);
+                        LessonTableModel demo=new LessonTableModel(data.getString(2),data.getString(1),'1');
+                        modelList1.add(demo);
 
-                        }
+                    }
 
                     adapter1=new MyAdapter(modelList1,getActivity());
                     rV1.setAdapter(adapter1);
@@ -176,7 +150,7 @@ public class FragmentOne extends Fragment {
         if(data.getCount() == 0){
             Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
         }else{
-            while(data.moveToNext()){
+
                 while(data.moveToNext()){
 
 
@@ -185,7 +159,7 @@ public class FragmentOne extends Fragment {
                     adapter1=new MyAdapter(modelList1,getActivity());
                     rV1.setAdapter(adapter1);
                 }
-            }
+
         }
 
 
@@ -202,7 +176,7 @@ public class FragmentOne extends Fragment {
                         try {
                             JSONObject jsonObject=new JSONObject(response);
                             if (jsonObject.getString("status").equals("ok")){
-                        Log.d("gunay",response);
+                                Log.d("gunay",response);
 
 
                                 JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
@@ -264,8 +238,50 @@ public class FragmentOne extends Fragment {
 
     }
 
+    /*
     public void delete(){
 
+
+        spinner = (Spinner) view.findViewById(R.id.spinner1);
+        monday=(Button)view.findViewById(R.id.buttonMonday);
+        tuesday=(Button)view.findViewById(R.id.buttonTuesday);
+        wednesday=(Button)view.findViewById(R.id.buttonWednesday);
+        thursday=(Button)view.findViewById(R.id.buttonThursday);
+        friday=(Button)view.findViewById(R.id.buttonFriday);
+        ok=(Button)view.findViewById(R.id.buttonOk);
+
+        week1=(Button)view.findViewById(R.id.buttonWeek1);
+        week2=(Button)view.findViewById(R.id.buttonWeek2);
+        week3=(Button)view.findViewById(R.id.buttonWeek3);
+        week4=(Button)view.findViewById(R.id.buttonWeek4);
+        week5=(Button)view.findViewById(R.id.buttonWeek5);
+
+
+        rV1=(RecyclerView)view.findViewById(R.id.recycleview);
+        rV1.setHasFixedSize(true);
+        rV1.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rV2=(RecyclerView)view.findViewById(R.id.recycleview2);
+        rV2.setHasFixedSize(true);
+        rV2.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rV3=(RecyclerView)view.findViewById(R.id.recycleview3);
+        rV3.setHasFixedSize(true);
+        rV3.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rV4=(RecyclerView)view.findViewById(R.id.recycleview4);
+        rV4.setHasFixedSize(true);
+        rV4.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rV5=(RecyclerView)view.findViewById(R.id.recycleview5);
+        rV5.setHasFixedSize(true);
+        rV5.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+
+
+        modelList1=new ArrayList<>();
+        modelList2=new ArrayList<>();
+        modelList3=new ArrayList<>();
+        modelList4=new ArrayList<>();
+        modelList5=new ArrayList<>();
+        sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         tuesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -352,5 +368,5 @@ public class FragmentOne extends Fragment {
         });
     }
 
-
+*/
 }
