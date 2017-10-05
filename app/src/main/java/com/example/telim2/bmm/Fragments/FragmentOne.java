@@ -49,7 +49,7 @@ public class FragmentOne extends Fragment {
     Button ok,monday,tuesday,wednesday,thursday,friday;
     Button week1,week2,week3,week4,week5;
     RecyclerView rV1,rV2,rV3,rV4,rV5;
-    int k=1,a=1,dm=0;
+    int k=1,a=1,dm=0, loadConst=0;
     public static final String mypreference = "mypref";
     SharedPreferences sharedpreferences;
     private List<LessonTableModel> modelList1,modelList2,modelList3,modelList4,modelList5;
@@ -79,6 +79,8 @@ public class FragmentOne extends Fragment {
         modelList1=new ArrayList<>();
         sharedpreferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
+        myDB = new DatabaseHelper(getActivity());
+
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,28 +95,8 @@ public class FragmentOne extends Fragment {
 
                 Log.d("nujm",monthN);
 
-                insertDB(weekN,monthN);
-
-                // myDB.deleteAll();
-
-                Cursor data = myDB.getListContents();
-                if(data.getCount() == 0){
-                    Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
-                }else{
-
-                    modelList1.clear();
-
-                    while(data.moveToNext()){
-
-                        LessonTableModel demo=new LessonTableModel(data.getString(2),data.getString(1),'1');
-                        modelList1.add(demo);
-
-                    }
-
-                    adapter1=new MyAdapter(modelList1,getActivity());
-                    rV1.setAdapter(adapter1);
-                }
-
+              //  insertDB(weekN,monthN);
+                myDB.deleteAll();
 
 
 
@@ -144,27 +126,34 @@ public class FragmentOne extends Fragment {
             }
         });
 
-        myDB = new DatabaseHelper(getActivity());
+      //  loadListview();
+
+        return view;
+
+    }
+
+    public void loadListview(){
+
+
 
         Cursor data = myDB.getListContents();
         if(data.getCount() == 0){
             Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
         }else{
 
-                while(data.moveToNext()){
+            modelList1.clear();
 
+            while(data.moveToNext()){
 
-                    LessonTableModel demo=new LessonTableModel(data.getString(2),data.getString(1),'1');
-                    modelList1.add(demo);
-                    adapter1=new MyAdapter(modelList1,getActivity());
-                    rV1.setAdapter(adapter1);
-                }
+                LessonTableModel demo=new LessonTableModel(data.getString(2),data.getString(1),'1');
+                modelList1.add(demo);
+                Log.d("salus",data.getString(2));
 
+            }
+
+            adapter1=new MyAdapter(modelList1,getActivity());
+            rV1.setAdapter(adapter1);
         }
-
-
-        return view;
-
     }
 
     public void  insertDB(final String weekNumber, final String monthNumber){
@@ -231,12 +220,28 @@ public class FragmentOne extends Fragment {
 
     public void addData(String grade,String subject,String day) {
 
-        boolean insertData = myDB.addData(grade,subject,day);
+        if(loadConst==0){
 
-        if(!insertData==true)
-            Toast.makeText(getActivity(), "Something went wrong :(.", Toast.LENGTH_LONG).show();
+            boolean insertData = myDB.addData(grade,subject,day);
+
+            if(!insertData==true)
+            {
+
+                Toast.makeText(getActivity(), "Something went wrong :(.", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                loadListview();
+                Log.d("Salus","not okay");
+            }
+        }
+
 
     }
+
+
+
+
 
     /*
     public void delete(){
