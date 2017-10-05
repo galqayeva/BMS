@@ -95,8 +95,8 @@ public class FragmentOne extends Fragment {
 
                 Log.d("nujm",monthN);
 
-              //  insertDB(weekN,monthN);
-                myDB.deleteAll();
+                 insertDB(weekN,monthN);
+               // myDB.deleteAll();
 
 
 
@@ -141,7 +141,6 @@ public class FragmentOne extends Fragment {
             Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
         }else{
 
-            modelList1.clear();
 
             while(data.moveToNext()){
 
@@ -232,8 +231,26 @@ public class FragmentOne extends Fragment {
             else
             {
                 loadListview();
-                Log.d("Salus","not okay");
             }
+
+            loadConst++;
+        }
+        else{
+
+            myDB.deleteAll();
+            boolean insertData = myDB.addData(grade,subject,day);
+
+            if(!insertData==true)
+            {
+
+                Toast.makeText(getActivity(), "Something went wrong :(.", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                loadListview();
+            }
+            loadConst--;
+
         }
 
 
