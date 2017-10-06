@@ -95,10 +95,7 @@ public class FragmentOne extends Fragment {
 
                 Log.d("nujm",monthN);
 
-                 insertDB(weekN,monthN);
-               // myDB.deleteAll();
-
-
+                //insertDB(weekN,monthN);
 
             }
         });
@@ -126,14 +123,13 @@ public class FragmentOne extends Fragment {
             }
         });
 
-      //  loadListview();
+        loadListview();
 
         return view;
 
     }
 
     public void loadListview(){
-
 
 
         Cursor data = myDB.getListContents();
