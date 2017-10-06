@@ -10,8 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "myTable.db";
-    public static final String TABLE_NAME = "myTable";
+    public static final String DATABASE_NAME = "mynewTable.db";
+    public static final String TABLE_NAME = "mynewTable";
     public static final String COL1 = "ID";
     public static final String COL2 = "GRADE";
     public static final String COL3 = "SUBJECT";
@@ -50,9 +50,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-    public Cursor getListContents(String firstID,String seconID){
+    public Cursor getListContents(String day){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE ID>"+firstID +" AND ID<"+seconID, null);
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE DAY="+day, null);
+        return data;
+    }
+
+    public Cursor getAlldata(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME , null);
         return data;
     }
 

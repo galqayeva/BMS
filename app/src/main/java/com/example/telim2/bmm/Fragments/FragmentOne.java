@@ -100,7 +100,7 @@ public class FragmentOne extends Fragment {
 
                 Log.d("nujm",monthN);
 
-                //insertDB(weekN,monthN);
+                check(weekN,monthN);
 
             }
         });
@@ -126,7 +126,7 @@ public class FragmentOne extends Fragment {
                     k--;
                 }
 
-                loadListview("0","12");
+                loadListview("1");
             }
         });
 
@@ -149,16 +149,29 @@ public class FragmentOne extends Fragment {
                     rV1.setVisibility(View.GONE);
                     k--;
                 }
-                loadListview("0","12");
+                loadListview("2");
             }
         });
 
+        check(weekN,monthN);
 
         return view;
 
     }
 
-    public void  insertDB(final String weekNumber, final String monthNumber){
+    public void check(String weekNumber, String monthNumber){
+        Cursor getAll = myDB.getAlldata();
+        if(getAll.getCount() == 0)
+        {
+            requestAndInsert(weekNumber,monthNumber);
+        }
+        else {
+            myDB.deleteAll();
+            requestAndInsert(weekNumber,monthNumber);
+        }
+    }
+
+    public void  requestAndInsert(final String weekNumber, final String monthNumber){
 
         final StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
@@ -169,12 +182,11 @@ public class FragmentOne extends Fragment {
                             if (jsonObject.getString("status").equals("ok")){
                                 Log.d("gunay",response);
 
+                                JSONArray jsonArrayGradeList=jsonObject.getJSONArray("gradeList");
 
-                                JSONArray jsonArray=jsonObject.getJSONArray("gradeList");
+                                for (int i=0;i<jsonArrayGradeList.length();i++){
 
-                                for (int i=0;i<jsonArray.length();i++){
-
-                                    JSONObject jsonObjectdemo=jsonArray.getJSONObject(i);
+                                    JSONObject jsonObjectdemo=jsonArrayGradeList.getJSONObject(i);
                                     int length=jsonObjectdemo.getJSONArray("subjects").length();
 
                                     for (int j=0;j<length;j++){
@@ -182,18 +194,10 @@ public class FragmentOne extends Fragment {
                                         JSONObject jsonObjectLesson=jsonObjectdemo.getJSONArray("subjects").getJSONObject(j);
                                         String name=jsonObjectLesson.getString("name");
                                         String grade=jsonObjectLesson.getString("grade");
-                                        int number=j+1;
 
-                                        if(dm<length){
-
-                                            boolean insertData = myDB.addData(grade,name,"2");
+                                            boolean insertData = myDB.addData(grade,name,Integer.toString(i+1));
                                             if(!insertData==true)
-                                            {
                                                 Log.d("something","getwrong");
-                                            }
-
-                                            dm++;
-                                        }
 
                                     }
                                 }
@@ -227,11 +231,10 @@ public class FragmentOne extends Fragment {
     }
 
 
-    public void loadListview(String a,String b){
-
+    public void loadListview(String a){
 
         modelList1.clear();
-        Cursor data = myDB.getListContents(a,b);
+        Cursor data = myDB.getListContents(a);
         if(data.getCount() == 0){
             Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
         }else{
@@ -245,7 +248,6 @@ public class FragmentOne extends Fragment {
                 i++;
 
             }
-
 
             adapter1=new MyAdapter(modelList1,getActivity());
             rV1.setAdapter(adapter1);
