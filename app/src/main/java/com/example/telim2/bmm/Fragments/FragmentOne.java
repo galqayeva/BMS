@@ -5,6 +5,7 @@ package com.example.telim2.bmm.Fragments;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,14 +50,17 @@ public class FragmentOne extends Fragment {
     Spinner spinner;
     Button ok,monday,tuesday,wednesday,thursday,friday;
     Button week1,week2,week3,week4,week5;
-    RecyclerView rV1,rV2,rV3,rV4,rV5;
-    int k=1,a=1,dm=0, loadConst=0;
+    RecyclerView rV1;
+    int k=1,a=1,dm=0, loadConst=0,i=0;
     public static final String mypreference = "mypref";
     SharedPreferences sharedpreferences;
-    private List<LessonTableModel> modelList1,modelList2,modelList3,modelList4,modelList5;
-    private RecyclerView.Adapter adapter1,adapter2,adapter3,adapter4,adapter5;
+    private List<LessonTableModel> modelList1;
+    private RecyclerView.Adapter adapter1;
     String weekN="",monthN="";
-    DatabaseHelper myDB,myDB2;
+    DatabaseHelper myDB;
+
+
+
 
 
     @Nullable
@@ -120,35 +125,37 @@ public class FragmentOne extends Fragment {
                     rV1.setVisibility(View.GONE);
                     k--;
                 }
+
+                loadListview("0","12");
             }
         });
 
-        loadListview();
+        tuesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(k==1){
+                    monday.setVisibility(View.GONE);
+                    wednesday.setVisibility(View.GONE);
+                    thursday.setVisibility(View.GONE);
+                    friday.setVisibility(View.GONE);
+                    rV1.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    monday.setVisibility(View.VISIBLE);
+                    wednesday.setVisibility(View.VISIBLE);
+                    thursday.setVisibility(View.VISIBLE);
+                    friday.setVisibility(View.VISIBLE);
+                    rV1.setVisibility(View.GONE);
+                    k--;
+                }
+                loadListview("0","12");
+            }
+        });
+
 
         return view;
 
-    }
-
-    public void loadListview(){
-
-
-        Cursor data = myDB.getListContents();
-        if(data.getCount() == 0){
-            Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
-        }else{
-
-
-            while(data.moveToNext()){
-
-                LessonTableModel demo=new LessonTableModel(data.getString(2),data.getString(1),'1');
-                modelList1.add(demo);
-                Log.d("salus",data.getString(2));
-
-            }
-
-            adapter1=new MyAdapter(modelList1,getActivity());
-            rV1.setAdapter(adapter1);
-        }
     }
 
     public void  insertDB(final String weekNumber, final String monthNumber){
@@ -178,7 +185,13 @@ public class FragmentOne extends Fragment {
                                         int number=j+1;
 
                                         if(dm<length){
-                                            addData(grade,name,"1");
+
+                                            boolean insertData = myDB.addData(grade,name,"2");
+                                            if(!insertData==true)
+                                            {
+                                                Log.d("something","getwrong");
+                                            }
+
                                             dm++;
                                         }
 
@@ -213,45 +226,31 @@ public class FragmentOne extends Fragment {
         MySingleTon.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 
-    public void addData(String grade,String subject,String day) {
 
-        if(loadConst==0){
+    public void loadListview(String a,String b){
 
-            boolean insertData = myDB.addData(grade,subject,day);
 
-            if(!insertData==true)
-            {
+        modelList1.clear();
+        Cursor data = myDB.getListContents(a,b);
+        if(data.getCount() == 0){
+            Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
+        }else{
 
-                Toast.makeText(getActivity(), "Something went wrong :(.", Toast.LENGTH_LONG).show();
+
+            int i=1;
+            while(data.moveToNext()){
+                Log.d("salus",data.getString(2)+"--"+"---"+data.getCount());
+                LessonTableModel demo=new LessonTableModel(data.getString(2),"", i);
+                modelList1.add(demo);
+                i++;
+
             }
-            else
-            {
-                loadListview();
-            }
 
-            loadConst++;
+
+            adapter1=new MyAdapter(modelList1,getActivity());
+            rV1.setAdapter(adapter1);
         }
-        else{
-
-            myDB.deleteAll();
-            boolean insertData = myDB.addData(grade,subject,day);
-
-            if(!insertData==true)
-            {
-
-                Toast.makeText(getActivity(), "Something went wrong :(.", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                loadListview();
-            }
-            loadConst--;
-
-        }
-
-
     }
-
 
 
 
