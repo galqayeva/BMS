@@ -96,7 +96,7 @@ public class FragmentOne extends Fragment {
                 else{
                     monthN=Integer.toString(spinner.getSelectedItemPosition()-3);
                 }
-                weekN="1";
+                weekN=" ";
 
                 Log.d("nujm",monthN);
 
