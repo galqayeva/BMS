@@ -10,8 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "daily.db";
-    public static final String TABLE_NAME = "daily";
+    public static final String DATABASE_NAME = "BMM.db";
+    public static final String TABLE_NAME = "bmm";
     public static final String COL1 = "ID";
     public static final String COL2 = "GRADE";
     public static final String COL3 = "SUBJECT";

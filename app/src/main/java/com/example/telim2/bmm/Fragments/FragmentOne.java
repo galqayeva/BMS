@@ -172,6 +172,7 @@ public class FragmentOne extends Fragment {
                     rV1.setVisibility(View.GONE);
                     k--;
                 }
+                loadListview("3");
             }
         });
         thursday.setOnClickListener(new View.OnClickListener() {
@@ -193,6 +194,7 @@ public class FragmentOne extends Fragment {
                     rV1.setVisibility(View.GONE);
                     k--;
                 }
+                loadListview("4");
             }
         });
         friday.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +216,7 @@ public class FragmentOne extends Fragment {
                     rV1.setVisibility(View.GONE);
                     k--;
                 }
+                loadListview("1");
             }
         });
 
@@ -301,7 +304,7 @@ public class FragmentOne extends Fragment {
         modelList1.clear();
         Cursor data = myDB.getListContents(a);
         if(data.getCount() == 0){
-            Toast.makeText(getActivity(), "There are no contents in this list!",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Ders YOXDUR!",Toast.LENGTH_LONG).show();
         }else{
 
 
