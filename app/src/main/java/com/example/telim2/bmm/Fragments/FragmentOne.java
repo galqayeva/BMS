@@ -153,6 +153,70 @@ public class FragmentOne extends Fragment {
             }
         });
 
+        wednesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(k==1){
+                    monday.setVisibility(View.GONE);
+                    tuesday.setVisibility(View.GONE);
+                    thursday.setVisibility(View.GONE);
+                    friday.setVisibility(View.GONE);
+                    rV1.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    monday.setVisibility(View.VISIBLE);
+                    tuesday.setVisibility(View.VISIBLE);
+                    thursday.setVisibility(View.VISIBLE);
+                    friday.setVisibility(View.VISIBLE);
+                    rV1.setVisibility(View.GONE);
+                    k--;
+                }
+            }
+        });
+        thursday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(k==1){
+                    monday.setVisibility(View.GONE);
+                    tuesday.setVisibility(View.GONE);
+                    wednesday.setVisibility(View.GONE);
+                    friday.setVisibility(View.GONE);
+                    rV1.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    monday.setVisibility(View.VISIBLE);
+                    tuesday.setVisibility(View.VISIBLE);
+                    wednesday.setVisibility(View.VISIBLE);
+                    friday.setVisibility(View.VISIBLE);
+                    rV1.setVisibility(View.GONE);
+                    k--;
+                }
+            }
+        });
+        friday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(k==1){
+                    monday.setVisibility(View.GONE);
+                    tuesday.setVisibility(View.GONE);
+                    wednesday.setVisibility(View.GONE);
+                    thursday.setVisibility(View.GONE);
+                    rV1.setVisibility(View.VISIBLE);
+                    k++;
+                }
+                else{
+                    monday.setVisibility(View.VISIBLE);
+                    tuesday.setVisibility(View.VISIBLE);
+                    wednesday.setVisibility(View.VISIBLE);
+                    thursday.setVisibility(View.VISIBLE);
+                    rV1.setVisibility(View.GONE);
+                    k--;
+                }
+            }
+        });
+
         check(weekN,monthN);
 
         return view;
@@ -178,16 +242,17 @@ public class FragmentOne extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jsonObject=new JSONObject(response);
-                            if (jsonObject.getString("status").equals("ok")){
+                            JSONObject responseObject=new JSONObject(response);
+                            if (responseObject.getString("status").equals("ok")){
                                 Log.d("gunay",response);
 
-                                JSONArray jsonArrayGradeList=jsonObject.getJSONArray("gradeList");
+                                JSONArray GradeListArray=responseObject.getJSONArray("gradeList");
 
-                                for (int i=0;i<jsonArrayGradeList.length();i++){
+                                for (int i=0;i<GradeListArray.length();i++){
 
-                                    JSONObject jsonObjectdemo=jsonArrayGradeList.getJSONObject(i);
+                                    JSONObject jsonObjectdemo=GradeListArray.getJSONObject(i);
                                     int length=jsonObjectdemo.getJSONArray("subjects").length();
+                                    String day=jsonObjectdemo.getString("dayOfWeek");
 
                                     for (int j=0;j<length;j++){
 
@@ -195,7 +260,7 @@ public class FragmentOne extends Fragment {
                                         String name=jsonObjectLesson.getString("name");
                                         String grade=jsonObjectLesson.getString("grade");
 
-                                            boolean insertData = myDB.addData(grade,name,Integer.toString(i+1));
+                                            boolean insertData = myDB.addData(grade,name,day);
                                             if(!insertData==true)
                                                 Log.d("something","getwrong");
 
