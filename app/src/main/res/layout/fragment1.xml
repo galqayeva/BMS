@@ -21,7 +21,7 @@ android:layout_height="match_parent">
 <Button
     android:id="@+id/buttonOk"
     android:layout_width="60dp"
-    android:layout_height="40dp"
+    android:layout_height="60dp"
     android:textSize="10dp"
     android:text="@string/ok"
     android:background="@color/colorPrimary"
@@ -33,8 +33,8 @@ android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:layout_marginTop="100dp"
     android:orientation="vertical"
     android:id="@+id/linearLayout2">
@@ -42,9 +42,9 @@ android:layout_height="match_parent">
     <Button
         android:id="@+id/buttonMonday"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/colorMainGreen"
         android:text="@string/Monday"
         android:textColor="@color/colorPrimary"
@@ -54,9 +54,9 @@ android:layout_height="match_parent">
     <Button
         android:id="@+id/buttonTuesday"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/colorMainGreen"
         android:text="@string/Tuesday"
         android:textColor="@color/colorPrimary"
@@ -67,9 +67,9 @@ android:layout_height="match_parent">
     <Button
         android:id="@+id/buttonWednesday"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/colorMainGreen"
         android:text="@string/Wednesday"
         android:textColor="@color/colorPrimary"
@@ -79,10 +79,10 @@ android:layout_height="match_parent">
     <Button
         android:id="@+id/buttonThursday"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:background="@color/colorMainGreen"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:text="@string/Thursday"
         android:textColor="@color/colorPrimary"
         android:textSize="10dp"
@@ -91,9 +91,9 @@ android:layout_height="match_parent">
     <Button
         android:id="@+id/buttonFriday"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/colorMainGreen"
         android:text="@string/Friday"
         android:textColor="@color/colorPrimary"
@@ -114,7 +114,7 @@ android:layout_height="match_parent">
 
 <LinearLayout
     android:layout_width="150dp"
-    android:layout_height="40dp"
+    android:layout_height="60dp"
     android:layout_alignLeft="@+id/linearLayout2"
     android:layout_alignStart="@+id/linearLayout2"
     android:layout_alignTop="@+id/spinner1"
@@ -123,7 +123,7 @@ android:layout_height="match_parent">
     <Button
         android:id="@+id/buttonWeek1"
         android:layout_width="25dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:text="1"
         android:background="@color/colorMainGreen"
         android:textColor="@color/colorPrimary"
@@ -131,7 +131,7 @@ android:layout_height="match_parent">
     <Button
         android:id="@+id/buttonWeek2"
         android:layout_width="25dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:text="2"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorMainGreen"
@@ -139,7 +139,7 @@ android:layout_height="match_parent">
     <Button
         android:id="@+id/buttonWeek3"
         android:layout_width="25dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:text="3"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorMainGreen"
@@ -147,7 +147,7 @@ android:layout_height="match_parent">
     <Button
         android:id="@+id/buttonWeek4"
         android:layout_width="25dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:text="4"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorMainGreen"
@@ -155,7 +155,7 @@ android:layout_height="match_parent">
     <Button
         android:id="@+id/buttonWeek5"
         android:layout_width="25dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:text="5"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorMainGreen"
