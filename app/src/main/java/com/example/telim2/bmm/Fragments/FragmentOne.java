@@ -224,9 +224,12 @@ public class FragmentOne extends Fragment {
 
         check(weekN,monthN);
 
+
         return view;
 
     }
+
+
 
     public void check(String weekNumber, String monthNumber){
         Cursor getAll = myDB.getAlldata();
