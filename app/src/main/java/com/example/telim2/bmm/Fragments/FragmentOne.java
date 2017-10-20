@@ -110,10 +110,12 @@ public class FragmentOne extends Fragment {
             @Override
             public void onClick(View v) {
                 if(k==1){
+                    monday.setVisibility(View.GONE);
                     tuesday.setVisibility(View.GONE);
                     wednesday.setVisibility(View.GONE);
                     thursday.setVisibility(View.GONE);
                     friday.setVisibility(View.GONE);
+                    monday.setVisibility(View.VISIBLE);
                     rV1.setVisibility(View.VISIBLE);
                     k++;
                 }
